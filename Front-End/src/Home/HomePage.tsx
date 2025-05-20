@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${API_URL}/product/grouped-by-category`
+          `${API_URL}/api/product/grouped-by-category`
         );
 
         const productData: CategoryGroup[] = response.data.data || [];
@@ -83,7 +83,7 @@ const HomePage: React.FC = () => {
           return;
         }
 
-        const response = await axios.get(`${API_URL}/userView`, {
+        const response = await axios.get(`${API_URL}/api/userView`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRecentlyViewed(response.data.data || []);
