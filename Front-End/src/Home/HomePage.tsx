@@ -14,6 +14,8 @@ interface CategoryData {
 }
 
 const HomePage: React.FC = () => {
+ const API_URL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,13 +32,12 @@ const HomePage: React.FC = () => {
     Product[]
   >([]);
   const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
-
   useEffect(() => {
     const fetchProductsByCategory = async () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          "http://localhost:5000/api/product/grouped-by-category"
+          `${API_URL}/product/grouped-by-category`
         );
 
         const productData: CategoryGroup[] = response.data.data || [];
@@ -82,7 +83,7 @@ const HomePage: React.FC = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/api/userView", {
+        const response = await axios.get(`${API_URL}/userView`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRecentlyViewed(response.data.data || []);
