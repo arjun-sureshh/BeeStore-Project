@@ -9,7 +9,7 @@ interface SingleProductProps {
 }
 
 const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
-  const baseURL = "http://localhost:5000";
+  const baseURL = import.meta.env.base_URL;
   const navigate = useNavigate();
 
   const handleNavigate = () => {
