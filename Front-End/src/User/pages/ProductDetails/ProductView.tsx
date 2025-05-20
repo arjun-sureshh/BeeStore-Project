@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Productview.module.css";
+import styles from "./ProductView.module.css";
 import ImageShow from "./components/ImageSection/ImageShow";
 import ProductDetails from "./components/DetailsSection/ProductDetails";
 import axios from "axios";
