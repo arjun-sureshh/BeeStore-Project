@@ -21,7 +21,7 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
     <div className={styles.body} onClick={handleNavigate}>
       <div className={styles.imgSec}>
         <img
-          src={product.image ? `${baseURL}${product.image}` : defaultImg}
+          src={product.image ? `${baseURL}/images${product.image}` : defaultImg}
           alt={product.productTitle}
         />
       </div>
