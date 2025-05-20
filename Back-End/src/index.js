@@ -7,6 +7,9 @@ require("dotenv").config();
 app.use(express.json());
 app.use(cors());
 
+app.use(express.static("./public"));
+
+
 connectDB();
 
 const adminRouter = require("./routers/adminRouters");
@@ -69,5 +72,4 @@ app.use("/api/productUpload", productUpload);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running  on the Port ${PORT}`));
-app.use(express.static("./public"));
 module.exports = app;
