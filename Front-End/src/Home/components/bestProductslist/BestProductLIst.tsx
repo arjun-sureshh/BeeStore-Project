@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./BestProductLIst.module.css";
+import styles from "./BestProductList.module.css";
 import SingleProduct from "./components/singleProduct/SingleProduct";
 import { Product } from "../types";
 import { useNavigate } from "react-router-dom";
