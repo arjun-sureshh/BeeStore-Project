@@ -1,0 +1,407 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 400;
+    overflow-y: scroll;
+    padding-top: 7px;
+    gap: 10px;
+    height: 100vh;
+  }
+  .body::-webkit-scrollbar {
+    display: none;
+  }
+  .productPath {
+    display: flex;
+    justify-content: space-between;
+  }
+  .path {
+    font-size: 13px;
+    font-weight: 400;
+    color: #888585;
+    line-height: 1.4;
+    width: 50%;
+    height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .path p {
+    font-family: Inter, -apple-system, Helvetica, Arial, sans-serif;
+  }
+  .share {
+    display: flex;
+    font-size: 1.1em;
+    color: rgb(54, 53, 53);
+    font-weight: 300;
+    justify-content: center;
+    gap: 6px;
+    margin-right: 15px;
+  }
+  .share span {
+    color: rgb(144, 142, 142);
+  }
+  .share:hover {
+    color: rgb(16, 3, 252);
+  }
+  .share:hover span {
+    color: rgb(16, 3, 252);
+  }
+  .varientName {
+    font-size: 20px;
+    font-weight: 530;
+    font-family: Inter, -apple-system, Helvetica, Arial, sans-serif;
+  }
+  .colorvariants {
+    height: 52px;
+    width: 52px;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    text-align: center;
+    border-radius: 2px;
+    border: 1px solid #e0dede;
+  }
+  .colorvariants img {
+    width: 40px;
+    height: 52px;
+  }
+  .name_Price {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .rating {
+    display: flex;
+    gap: 7px;
+  }
+  .avgRating {
+    background-color: rgb(22, 150, 48);
+    color: #fff;
+    padding: 2px;
+    border-radius: 3px;
+    height: 16px;
+    font-size: 70%;
+    text-align: center;
+  }
+  .totalRating_Review {
+    font-weight: 500;
+    color: #878787;
+  }
+  .pricesection {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+  .sellingPrice {
+    font-size: 30px;
+    font-weight: 545;
+    color: #212121;
+  }
+  .MRP {
+    color: #878787;
+    font-size: 17px;
+    font-weight: 300;
+  }
+  .offerPer {
+    font-size: 15px;
+    font-weight: 555;
+    color: #38ac3e;
+  }
+  .Extraoffer {
+    font-weight: 555;
+    font-size: 14px;
+    text-align: left;
+    color: #21a828;
+    font-family: Inter, -apple-system, Helvetica, Arial, sans-serif;
+  }
+  .strick {
+    text-decoration: line-through;
+  }
+  .headOfOffer {
+    font-size: 16px;
+    font-weight: 555;
+    color: #212121;
+    margin-bottom: 10px;
+  }
+  .availableOffers {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  .wholeOfferDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .offerdetails {
+    display: flex;
+    gap: 10px;
+  }
+  .offericon {
+    color: #21a828;
+  }
+  .bankOffer {
+    display: flex;
+    gap: 10px;
+  }
+  .defineOffer {
+    font-size: 1.1em;
+    font-weight: 430;
+    font-family: Inter, -apple-system, Helvetica, Arial, sans-serif;
+  }
+  .bold {
+    color: black;
+    font-weight: 551;
+    font-size: 15px;
+    margin-right: 7px;
+  }
+  .termBlue {
+    color: rgb(0, 60, 255);
+  }
+  .warrantySection {
+    display: flex;
+  }
+  .warrantyKnowMore {
+    color: blue;
+  }
+  .otherDetails {
+    display: flex;
+    margin-top: 20px;
+  }
+  .variant {
+    display: flex;
+    max-width: 50%;
+  }
+  .delivery {
+    display: flex;
+  }
+  .headName {
+    font-weight: 500;
+    color: #878787;
+    width: 110px;
+    padding-right: 10px;
+    float: left;
+  }
+  .varientBody {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .StorageBody {
+    display: flex;
+    gap: 20px;
+  }
+  .varaintStorage {
+    padding: 7px;
+    height: fit-content;
+    text-align: center;
+    border: 1.2px dotted #c1bdbd;
+    border-radius: 2px;
+  }
+  .flex {
+    display: flex;
+  }
+  .green {
+    color: green;
+  }
+  .circlePopUp {
+    border-radius: 50%;
+    background-color: #fff;
+    color: #878787;
+    font-weight: 500;
+    width: 16px;
+    height: 16px;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, .2);
+    vertical-align: middle;
+    margin: 0 2px 0 8px;
+    cursor: pointer;
+  }
+  .highlightDatas {
+    display: flex;
+    flex-direction: column;
+  }
+  .headDetails {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Existing styles (unchanged) */
+.specificationDatas {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.specItem {
+  padding: 5px 0;
+}
+
+.specValue {
+  font-size: 14px;
+  font-weight: 400;
+  color: #212121;
+}
+
+.noSpecs {
+  font-size: 14px;
+  font-weight: 400;
+  color: #878787;
+}
+
+/* New style for selected variant */
+.colorvariants {
+  height: 52px;
+  width: 52px;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  text-align: center;
+  border-radius: 2px;
+  border: 1px solid #e0dede;
+  cursor: pointer;
+}
+
+.colorvariants img {
+  width: 40px;
+  height: 52px;
+}
+
+.colorvariants.selected {
+  border: 2px solid #388e3c; /* Green border for selected variant */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+  
+  .specificationDatas {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .specGroup {
+    margin-bottom: 15px;
+  }
+  
+  .specTitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: #212121;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 5px;
+  }
+  
+  .specItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+  }
+  
+  .specKey {
+    font-size: 14px;
+    font-weight: 400;
+    color: #878787;
+    width: 40%;
+  }
+  
+  .specValue {
+    font-size: 14px;
+    font-weight: 400;
+    color: #212121;
+    width: 60%;
+  }
+  
+  .noSpecs {
+    font-size: 14px;
+    font-weight: 400;
+    color: #878787;
+  }
+
+  .feedbackDatas {
+    margin-top: 10px;
+  }
+  
+  .feedbackItem {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 0;
+  }
+  
+  .feedbackHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .feedbackRating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #388e3c;
+    font-weight: bold;
+  }
+  
+  .feedbackUser {
+    font-weight: 500;
+  }
+  
+  .feedbackDate {
+    color: #878787;
+    font-size: 12px;
+  }
+  
+  .feedbackTitle {
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  .feedbackDescription {
+    color: #212121;
+    margin-bottom: 10px;
+  }
+  
+  .feedbackMedia {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .mediaItem {
+    max-width: 60px;
+  }
+  
+  .feedbackImage,
+  .feedbackVideo {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .noFeedback {
+    color: #878787;
+    font-style: italic;
+  }
+
+  .reviewsdisplay{
+    display: flex;
+    gap: 20px;
+  }
+  /* Existing styles... */
+
+.outOfStockMessage {
+  border: 2px solid rgb(248, 25, 0);
+  width: fit-content;
+  padding: 3px;
+  color: rgb(188, 36, 23);
+  font-weight: bold;
+  font-size: 18px;
+  margin: 10px 0;
+}

@@ -1,0 +1,39 @@
+
+.container {
+    display: flex;
+    gap: 20px;
+}
+.inputTitle{
+    background: rgb(187, 187, 187);
+    border-radius: 5px;
+   
+    input{
+        background: rgb(255, 255, 255);
+        color: rgb(96, 112, 128);
+        padding-left: 15px;
+        width: 94%;
+        height: 100%;
+        margin-right: 10px;
+        border: 1px solid rgb(187, 187, 187);
+        border-radius: 4.5px;
+        outline: none;
+    }
+}
+.input input {
+    height: 40px;
+    max-width: 265px;
+    background: white;
+    border: none;
+    border-radius: 4.5px;
+    outline: none;
+    padding-left: 20px;
+}
+
+.input {
+    border: 1.5px solid gray;
+    border-radius: 4.5px;
+}
+
+.input:hover {
+    border-color: blue;
+}

@@ -1,0 +1,48 @@
+.body{
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 20px;
+    width: 100vw;
+    height: 70px;
+    background: #868b8e;
+    color: rgb(236, 242, 244);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);   
+    align-items: center;
+}
+
+.section1{
+    display: flex;
+    gap: 16px;
+
+}
+.logout{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding-inline: 10px;
+}
+.logout:hover{
+    
+    border-radius: 5px;
+    border: 1px solid #000000;
+}
+.logoutIcons{
+    color: #ffffff;
+    font-size: 20px;
+}
+.home:hover{
+    color: #000000;
+}
+.orders:hover{
+color: #000000;
+}
+.Payments:hover{
+    color: #000000;
+}
+.listing:hover{
+    color: #000000;
+}
+.logout:hover .logoutIcons,
+.logout:hover  {
+    color: #000000;
+}

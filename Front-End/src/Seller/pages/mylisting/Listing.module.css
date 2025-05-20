@@ -1,0 +1,110 @@
+.body{
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+/* .subNav{
+    padding-inline: 20px;
+} */
+
+
+.flex{
+    display: flex;
+    flex-direction: column;
+}
+.updatesSection{
+    margin-top: 10px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    padding-block: 20px;
+    border-radius: 5px;
+    padding-inline: 20px;
+}
+.updatesBoxs{
+ display: flex;
+ 
+}
+.activeBox{
+    padding: 7px 12px 4px 11px;
+    border: 1px solid rgb(142, 140, 136);
+    cursor: pointer;
+
+    background: rgba(254, 254, 254, 0.57);
+    box-shadow: rgba(193, 199, 208, 0.4) 0px -1px 0px 0px, rgb(193, 199, 208) 0px 1px 0px 0px;
+}
+.activeBox:hover{
+    color: rgba(47, 0, 255, 0.8);
+    border-color: rgb(16, 45, 232);
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: rgb(254, 254, 254);
+
+}
+.boxSection1{
+    line-height: 16px;
+}
+.activeBoxm{
+    padding: 7px 12px 4px 11px;
+    border: 1px solid rgb(142, 140, 136);
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 3px;
+    background-color: rgba(254, 254, 254, 0.718);
+    box-shadow: rgba(193, 199, 208, 0.4) 0px -1px 0px 0px, rgb(193, 199, 208) 0px 1px 0px 0px;
+}
+.activeBoxm:hover{
+    color: rgba(47, 0, 255, 0.8);
+    border-color: rgb(16, 45, 232);
+    background: rgb(254, 254, 254);
+   
+}
+.borderradius{
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    margin: 20px 0;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    /* border-radius: 10px; */
+    overflow: hidden;
+
+
+}
+
+th,td {
+    border: 1px solid #9b9898;
+    padding: 8px;
+    text-align: center;
+}
+
+.head {
+    height: 40px;
+    padding: 11px;
+    color: rgb(96, 112, 128);
+    font-size: 13px;
+    font-weight: normal;
+    width: 325px;
+    text-align: left;
+    position: sticky;
+    top: 0px;
+    background-color: rgb(238, 238, 238);
+
+}
+
+.details {
+    background-color: #fff;
+}
+.delete{
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(132, 2, 2);
+    cursor: pointer;
+}
+.delete:hover{
+    color: rgb(218, 6, 6);
+}

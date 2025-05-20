@@ -1,0 +1,74 @@
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tableContainer {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tableContainer th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #ddd; /* Single bottom border for headers */
+    background-color: #f8f9fa;
+    font-weight: bold;
+  }
+  
+  .tableContainer td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;  
+  }
+  
+  .tableContainer tbody tr:last-child td {
+    border-bottom: none; /* Remove border for last row */
+  }
+  
+  /* Product image and text layout */
+  .productInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .productImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .category {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  /* Status badge styles */
+  .status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  
+  .inprogress {
+    background-color: green;
+    color: white;
+  }
+  
+  .paused {
+    background-color: orange;
+    color: white;
+  }
+  
+  .cancelled {
+    background-color: red;
+    color: white;
+  }
+  

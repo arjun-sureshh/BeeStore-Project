@@ -1,0 +1,12 @@
+.body{
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.productsRow{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* justify-content: space-between; */
+   
+}

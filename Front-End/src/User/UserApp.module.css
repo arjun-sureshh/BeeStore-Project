@@ -1,0 +1,11 @@
+
+.pages{
+    width: 100%;
+    height: 90vh;
+    overflow-y:scroll ;
+    background-color: rgb(226, 227, 227);
+}
+.pages::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+  }
+

@@ -1,0 +1,257 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f8ff;
+    padding: 30px;
+    gap: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 20px auto;
+  }
+  
+  .greeting {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    color: #2d3748;
+    text-align: center;
+  }
+  
+  .yourDashboard {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #2d3748;
+    text-align: center;
+  }
+  
+  .updatesSection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .detailsSection {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+  
+  .sectionHeader {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: #2d3748;
+    padding: 15px;
+    background-color: #edf2f7;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .sectionHeader:hover {
+    background-color: #e2e8f0;
+  }
+  
+  .detailsContent {
+    padding: 20px;
+  }
+  
+  .detailsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .detailCard {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .detailCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detailImage {
+    width: 100%;
+    height: 100px; /* Reduced size for cards */
+    object-fit: cover;
+  }
+  
+  .detailInfo {
+    padding: 15px;
+  }
+  
+  .detailInfo h3 {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #2d3748;
+    margin-bottom: 10px;
+  }
+  
+  .detailInfo p {
+    font-size: 14px;
+    line-height: 20px;
+    color: #4a5568;
+    margin: 5px 0;
+  }
+  
+  .tableContainer {
+    overflow-x: auto;
+  }
+  
+  .listingsTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+  }
+  
+  .listingsTable th,
+  .listingsTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .listingsTable th {
+    font-weight: 600;
+    font-size: 14px;
+    color: #2d3748;
+    background-color: #f7fafc;
+  }
+  
+  .listingsTable td {
+    font-size: 14px;
+    color: #4a5568;
+  }
+  
+  .listingsTable tr:hover {
+    background-color: #f7fafc;
+  }
+  
+  .tableImage {
+    width: 50px;
+    height: 50px; /* Smaller size for table */
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #2d3748;
+    padding: 40px;
+  }
+  
+  .error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #e53e3e;
+    padding: 40px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .body {
+      padding: 20px;
+      gap: 20px;
+      margin: 10px;
+    }
+  
+    .greeting {
+      font-size: 24px;
+      line-height: 32px;
+    }
+  
+    .yourDashboard {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  
+    .updatesSection {
+      gap: 15px;
+    }
+  
+    .sectionHeader {
+      font-size: 18px;
+      padding: 12px;
+    }
+  
+    .detailsContent {
+      padding: 15px;
+    }
+  
+    .detailsGrid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+  
+    .detailImage {
+      height: 80px; /* Smaller for tablets */
+    }
+  
+    .listingsTable th,
+    .listingsTable td {
+      padding: 10px;
+      font-size: 13px;
+    }
+  
+    .tableImage {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .body {
+      padding: 15px;
+      gap: 15px;
+    }
+  
+    .greeting {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  
+    .yourDashboard {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  
+    .updatesSection {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .detailsGrid {
+      grid-template-columns: 1fr;
+    }
+  
+    .detailImage {
+      height: 60px; /* Smaller for mobile */
+    }
+  
+    .listingsTable {
+      display: block;
+      overflow-x: auto;
+    }
+  
+    .listingsTable th,
+    .listingsTable td {
+      min-width: 100px;
+    }
+  
+    .tableImage {
+      width: 30px;
+      height: 30px;
+    }
+  }

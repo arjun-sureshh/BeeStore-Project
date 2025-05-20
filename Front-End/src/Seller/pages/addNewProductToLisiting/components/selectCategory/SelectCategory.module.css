@@ -1,0 +1,61 @@
+.categoryContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 100%;
+gap: 40px;
+    padding: 20px;
+  }
+  
+  .wrapper {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .subTitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .searchBar {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .brandButton {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient Blue */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .brandButton:hover {
+    background: linear-gradient(135deg, #0056b3, #003f7f); /* Darker Gradient */
+  }
+  
+  .brandButton:active {
+    transform: scale(0.98);
+  }
+  

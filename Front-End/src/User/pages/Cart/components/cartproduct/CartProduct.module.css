@@ -1,0 +1,140 @@
+.body {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .body:hover {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .productImage {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .productImage img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  .NameSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .name:hover {
+    color: #ff6f00;
+  }
+  
+  .sellerName {
+    color: #666666;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  
+  .removefromcart {
+    font-size: 14px;
+    font-weight: 500;
+    color: #d32f2f;
+    cursor: pointer;
+    width: fit-content;
+    transition: color 0.3s ease;
+  }
+  
+  .removefromcart:hover {
+    color: #b71c1c;
+  }
+  
+  .priceSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    margin-left: 200px;
+  }
+  
+  .sellingPrice {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ff6f00;
+  }
+  
+  .MRP {
+    color: #666666;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  
+  .strick {
+    text-decoration: line-through;
+  }
+  
+  .Addone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .AddoneIcon {
+    font-size: 24px;
+    color: #333333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .AddoneIcon:hover {
+    color: #ff6f00;
+  }
+  
+  .displayCount {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+  }
+  
+  .disabled {
+    color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 768px) {
+    .body {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  
+    .priceSection {
+      align-items: flex-start;
+    }
+  
+    .productImage {
+      width: 80px;
+      height: 80px;
+    }
+  }

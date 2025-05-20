@@ -1,0 +1,204 @@
+.paymentContainer {
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+  }
+  
+  .paymentOption {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .paymentOption input[type="radio"] {
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .label {
+    color: #2874f0;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  .subText {
+    margin-left: 25px;
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .inputContainer {
+    margin-left: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .inputField {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .expiryContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .selectField {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 60px;
+  }
+  
+  .verifyButton {
+    padding: 8px 15px;
+    background-color: #808080;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+  }
+  
+  .confirmButton {
+    padding: 8px 15px;
+    background-color: #ff5733;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 120px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .paymentContainer {
+      padding: 10px;
+    }
+    .paymentOption {
+      margin-bottom: 10px;
+    }
+    .label, .subText, .inputField, .selectField {
+      font-size: 12px;
+    }
+    .inputField, .selectField {
+      width: 150px;
+    }
+    .verifyButton, .confirmButton {
+      padding: 6px 12px;
+      width: 90px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .paymentContainer {
+      padding: 8px;
+    }
+    .label, .subText, .inputField, .selectField {
+      font-size: 10px;
+    }
+    .inputField, .selectField {
+      width: 120px;
+    }
+    .verifyButton, .confirmButton {
+      padding: 5px 10px;
+      width: 80px;
+    }
+    .expiryContainer {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+  .confirmButton {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .confirmButton:hover {
+    background-color: #218838;
+  }
+  .captchaContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .captchaText {
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .verifyButton {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .verifyButton:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  .confirmButton {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .confirmButton:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  .successMessage {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .successMessage h2 {
+    color: #4CAF50;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .successMessage p {
+    color: #333;
+    font-size: 16px;
+  }
+  .successMessage::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: #4CAF50;
+    animation: progressBar 3s linear forwards;
+  }
+  
+  @keyframes progressBar {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }

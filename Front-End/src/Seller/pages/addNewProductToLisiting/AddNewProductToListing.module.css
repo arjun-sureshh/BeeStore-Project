@@ -1,0 +1,25 @@
+.body{
+    height: 100%;
+}
+
+.productAddingContainer {
+    display: flex;
+    padding-inline: 40px;
+    gap: 30px;
+    margin-block: 25px;
+    width: 100%;
+}
+
+.photoSection {
+    width: 40%;
+    min-height: 400px;
+   max-height: fit-content;
+}
+
+.detailsSection {
+    flex-grow: 1;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

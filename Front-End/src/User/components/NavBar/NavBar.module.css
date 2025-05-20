@@ -1,0 +1,6 @@
+/* components/NavBar/NavBar.module.css */
+.body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }

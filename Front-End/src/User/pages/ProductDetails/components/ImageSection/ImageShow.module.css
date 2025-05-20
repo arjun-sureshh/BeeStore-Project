@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imageSection {
+  margin-top: 15px;
+  display: flex;
+  width: 87%;
+  height: 448px;
+  position: relative;
+}
+
+.sideMultiImages {
+  border: 1px solid #f0f0f0;
+  width: 15%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.sideMultiImages::-webkit-scrollbar {
+  display: none;
+}
+
+.sideImage {
+  border: 1px solid #f0f0f0;
+  overflow-y: auto;
+  display: flex;
+  width: 100%;
+  height: 20%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sideImage img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.mainImage {
+  border: 1px solid #f0f0f0;
+  width: 85%;
+  padding: 10px;
+  /* position: relative; s */
+}
+
+.mainImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.wishlistButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #ccc; /* Outline color, like Flipkart */
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.wishlistButton:hover {
+  color: #ff4444; /* Red on hover, like a filled heart */
+  transform: scale(1.01);
+}
+
+.wishlistActive {
+  color: #ff4444; /* Filled heart when active */
+}
+
+.wishlistActive {
+  color: #da0606;
+}
+
+.wishlistInactive {
+  color: #9f9f9e;
+}
+
+.buySection {
+  display: flex;
+  justify-content: end;
+  width: 87%;
+  padding: 10px;
+  gap: 10px;
+}
+
+.Button {
+  width: 180px;
+  height: 50px;
+  border-radius: 2px;
+  color: white;
+  border: none;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: 530;
+  text-transform: uppercase;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.Button:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.yellowishOrange {
+  background-color: orange;
+}
+
+.Orange {
+  background: #fb641b;
+}
+
+.noImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #888;
+}
+/* Existing styles... */
+
+.outOfStockMessage {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.Button.disabled {
+  /* background-color: orange; */
+
+  cursor: not-allowed;
+  opacity: 0.6;
+}

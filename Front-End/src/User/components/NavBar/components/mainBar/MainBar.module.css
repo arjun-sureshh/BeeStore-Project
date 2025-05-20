@@ -1,0 +1,327 @@
+.flipSearchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(29, 29, 29);
+  width: 100%;
+  height: 56px;
+  color: #fff;
+}
+
+.wholeBar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 0 10px;
+  max-width: 1248px;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+}
+
+.flipkart {
+  display: flex;
+  justify-content: end;
+  width: 10%;
+  min-width: 100px;
+}
+
+.name1 {
+  color: #e3c7a1;
+  font-size: 24px;
+  font-family: cursive;
+}
+
+.searchBar {
+  display: flex;
+  border: 2px solid;
+  background-color: #fff;
+  border-radius: 3px;
+  justify-content: flex-start;
+  height: 70%;
+  min-width: 200px;
+  width: calc(100% - 540px);
+  margin: 0 auto 0 12px;
+  align-items: center;
+  position: relative;
+}
+
+.searchBar input {
+  padding: 0 12px;
+  border-radius: 2px 0 0 2px;
+  border: 0;
+  outline: 0 none;
+  font-size: 14px;
+  height: 36px;
+  width: 100%;
+}
+
+.searchIcon {
+  border: 1px solid var(--color-white-bg);
+     background-color: #f9c241;
+
+  height: 36px;
+  width: 44px;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 4px 12px 0 8px;
+  color: rgb(52, 89, 238);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login {
+    color: #aaaaaa;
+
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 3px;
+  height: 32px;
+  padding: 5px 20px;
+  border: 1px solid #dbdbdb;
+  font-size: 14px;
+}
+.login:hover{
+  color: #fff;
+  border: 1px solid #dbdbdb;
+
+}
+
+.becomeSeller {
+  line-height: 20px;
+  font-size: 16px;
+  letter-spacing: 0.1px;
+  font-weight: 500;
+      color: #aaaaaa;
+
+  position: relative;
+}
+
+.becomeSeller:hover {
+  color: #fff;
+
+}
+
+.moreOption {
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+  line-height: 20px;
+  font-size: 16px;
+  letter-spacing: 0.1px;
+  font-weight: 500;
+  color: #fff;
+  /* display: flex; */
+}
+
+.options {
+  display: flex;
+  gap: 20px;
+}
+
+.whishlist,
+.Orders {
+  cursor: pointer;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+  font-size: 16px;
+  letter-spacing: 0.1px;
+  font-weight: 500;
+  color: #fff;
+  position: relative;
+  gap: 6px;
+}
+
+/* Suggestion Dropdown Styles */
+.suggestionDropdown {
+  position: absolute;
+  margin-top: 10px;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-top: none;
+  border: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestionItem {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.suggestionItem:hover {
+  background: #f0f0f0;
+}
+
+/* Mobile Search Icon (Visible on small screens) */
+.mobileSearchIcon {
+  display: none;
+  /* Hidden by default on larger screens */
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Responsive Styles */
+
+/* Tablets (768px to 1024px) */
+@media (max-width: 1024px) {
+  .wholeBar {
+    gap: 10px;
+    margin: 0 5px;
+  }
+
+  .flipkart {
+    width: 15%;
+    min-width: 80px;
+  }
+
+  .name1 {
+    font-size: 1em;
+    /* Smaller logo text */
+  }
+
+  .searchBar {
+    width: calc(100% - 400px);
+    /* Adjust width for tablet */
+    min-width: 150px;
+  }
+
+  .login {
+    padding: 5px 15px;
+    font-size: 12px;
+  }
+
+  .becomeSeller,
+  .moreOption,
+  .cart {
+    font-size: 14px;
+  }
+}
+
+
+/* Mobile (below 768px) */
+@media (max-width: 768px) {
+  .flipSearchBar {
+    height: auto;
+    /* Allow height to grow */
+    padding: 10px 0;
+    /* Add padding for better spacing */
+  }
+
+  .wholeBar {
+    flex-direction: row;
+    /* Keep row for now, but adjust below */
+    gap: 8px;
+    margin: 0 5px;
+    flex-wrap: nowrap;
+    /* Prevent wrapping initially */
+    position: relative;
+  }
+
+  .flipkart {
+    width: auto;
+    min-width: 60px;
+  }
+
+  .name1 {
+    font-size: 0.9em;
+  }
+
+  /* Hide search bar by default on mobile */
+  .searchBar {
+    display: none;
+    width: 100%;
+    /* Full width when open */
+    margin: 0;
+    position: absolute;
+    top: 56px;
+    /* Position below the header */
+    left: 0;
+    z-index: 1000;
+    background: #2974d6;
+    /* Match header background */
+    padding: 5px;
+  }
+
+  /* Show search bar when toggled */
+  .searchBarOpen {
+    display: flex;
+  }
+
+  .searchBar input {
+    padding: 0 10px;
+    font-size: 12px;
+    height: 32px;
+  }
+
+  .searchIcon {
+    height: 32px;
+    width: 36px;
+    padding: 4px 8px;
+  }
+
+  /* Show mobile search icon */
+  .mobileSearchIcon {
+    display: flex;
+    align-items: center;
+  }
+
+  .login {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  /* Hide non-critical elements on mobile */
+  .becomeSeller,
+  .moreOption {
+    display: none;
+  }
+
+  .cart {
+    font-size: 14px;
+    gap: 4px;
+  }
+
+  .suggestionDropdown {
+    max-height: 150px;
+    /* Smaller dropdown on mobile */
+  }
+
+  .suggestionItem {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Very small screens (below 480px) */
+@media (max-width: 480px) {
+  .flipkart {
+    min-width: 50px;
+  }
+
+  .name1 {
+    font-size: 0.8em;
+  }
+
+  .login {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  .cart {
+    font-size: 12px;
+    gap: 3px;
+  }
+}

@@ -1,0 +1,72 @@
+.body {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .headName {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
+    padding-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .priceDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .totalAmountSection {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .totalPrice {
+    color: #ff6f00;
+  }
+  
+  .savePrice {
+    padding: 15px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #388e3c;
+  }
+  
+  .securityMessage {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .icons {
+    font-size: 20px;
+    color: #666666;
+  }
+  
+  .message {
+    color: #666666;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 768px) {
+    .body {
+      max-width: 100%;
+    }
+  }

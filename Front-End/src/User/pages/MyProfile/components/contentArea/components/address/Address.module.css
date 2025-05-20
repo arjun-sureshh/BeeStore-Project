@@ -1,0 +1,76 @@
+.body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+  }
+  
+  .headName {
+    font-size: 18px;
+    font-weight: 550;
+    margin-bottom: 14px;
+  }
+  
+  .addAddressSection {
+    display: flex;
+    padding: 14px;
+    padding: 5px;
+    border-radius: 1.9px;
+    border: 1px dotted;
+    gap: 10px;
+    align-items: center;
+    color: rgb(248, 123, 6);
+    width: fit-content;
+    cursor: pointer;
+    border-color: rgb(1, 1, 1);
+  }
+  
+  .addAddressSection:hover {
+    transform: scale(1.01);
+    color: blue;
+  }
+  
+  .plusIcon {
+    font-size: large;
+  }
+  
+  .addMessage {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 550;
+    letter-spacing: 0.5px;
+  }
+  
+  .previousAddress {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* New styles for no addresses found */
+  .noAddressContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px dotted rgb(1, 1, 1);
+    border-radius: 4px;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .noAddressMessage {
+    font-size: 16px;
+    font-weight: 550;
+    color: rgb(51, 51, 51);
+    margin-bottom: 8px;
+  }
+  
+  .noAddressSubMessage {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(102, 102, 102);
+    max-width: 300px;
+  }

@@ -1,0 +1,225 @@
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Overlay for the popup */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Popup container */
+  .popup {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 360px;
+    position: relative;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Close button */
+  .closeBtn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .closeBtn:hover {
+    color: black;
+  }
+  
+  /* Title */
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Input fields */
+  .input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Forgot password */
+  .forgetPassword {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+  }
+  
+  /* Login button */
+  .loginBtn {
+    width: 100%;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .loginBtn:hover {
+    background: linear-gradient(135deg, #0056b3, #004494);
+    /* transform: scale(1.05); */
+  }
+  
+  /* Links section */
+  .links {
+    margin-top: 15px;
+    font-size: 15px;
+  }
+  
+  /* Link styles */
+  .link {
+    color: #4b9cf2;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .link:hover {
+    color: #007bff;
+    text-decoration: underline;
+  }
+  
+  /* Open button */
+  .openBtn {
+    background: linear-gradient(135deg, #ffcc00, #e6b800);
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+  }
+  
+  .openBtn:hover {
+    background: linear-gradient(135deg, #e6b800, #d4a500);
+    transform: scale(1.05);
+  }
+  
+  /* Error message styling */
+.errorMessage {
+    color:#ff6161;
+    font-size: 14px;
+    background: #ffe6e6;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  /* Success message styling */
+  .successMessage {
+    color: green;
+    font-size: 14px;
+    background: #e6ffe6;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  /* Disable button style */
+  .loginBtn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  .inputGroup {
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .inputError {
+    border-color: #ff6161;
+  }
+  
+  .errorMessage {
+    color: #ff6161;
+
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+  /* Adjust popup for forgot password steps */
+.popup {
+  /* Ensure it fits content */
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Style the buttons consistently */
+.loginBtn {
+  margin-top: 15px; /* Add some spacing above buttons in forgot password flow */
+}
+
+/* Optional: Add a subtle background change for forgot password */
+.popup.forgotPassword {
+  background: #f9f9f9; /* Light grey to differentiate */
+}
+/* Disabled link style */
+.disabledLink {
+  color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none; /* Prevents clicking when disabled */
+}
+
+/* Optional: Style for disabled input in forgot password */
+.input:disabled {
+  background: #f5f5f5;
+  color: #666;
+}

@@ -1,0 +1,295 @@
+.container {
+  display: flex;
+  background-color: #f9fafb;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.sidebar {
+  width: 280px;
+  background-color: #ffffff;
+  padding: 20px;
+  margin-right: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.filtersTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
+.filterSectionTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666666;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filterCheckbox,
+.filterRadio {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.checkbox,
+.radio {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cccccc;
+  border-radius: 4px;
+  outline: none;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.checkbox:checked,
+.radio:checked {
+  background-color: #2874f0;
+  border-color: #2874f0;
+  position: relative;
+}
+
+.checkbox:checked::after,
+.radio:checked::after {
+  content: '✔';
+  color: white;
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkboxLabel,
+.radioLabel {
+  font-size: 14px;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.ordersList {
+  flex-grow: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.searchContainer {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.searchInput {
+  flex-grow: 1;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-right: none;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+  border-color: #2874f0;
+}
+
+.searchButton {
+  background-color: #2874f0;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.searchButton:hover {
+  background-color: #1a5ed6;
+}
+
+.searchButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.orderContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.orderItem {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orderItem:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.productImage,
+.productImagePlaceholder {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #f0f0f0;
+  margin-bottom: 10px;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: center;
+}
+
+.productName {
+  font-size: 16px;
+  color: #1a1a1a;
+  font-weight: 500;
+  margin: 0;
+}
+
+.productColor,
+.productDescription,
+.productQuantity {
+  font-size: 14px;
+  color: #666666;
+  margin: 0;
+}
+
+.orderStatusDetails {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.orderPrice {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0 0 10px 0;
+}
+
+.orderStatus {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.statusPending {
+  color: #ffa500;
+  font-weight: bold;
+}
+
+.statusPacked {
+  color: #2196f3;
+  font-weight: bold;
+}
+
+.statusShipped {
+  color: #9c27b0;
+  font-weight: bold;
+}
+
+.statusReceived {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.statusCancelled {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.statusUnknown {
+  color: #757575;
+  font-weight: bold;
+}
+
+.statusMessage {
+  font-size: 12px;
+  color: #757575;
+  margin: 5px 0;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.cancelButton:hover {
+  background-color: #d32f2f;
+}
+
+.cancelButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.confirmButton {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.confirmButton:hover {
+  background-color: #1976d2;
+}
+
+.confirmButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.reviewButton {
+  display: inline-block;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.reviewButton:hover {
+  background-color: #388e3c;
+}
+
+.reviewButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

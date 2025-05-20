@@ -1,0 +1,229 @@
+/* SellerVerification.module.css */
+:root {
+    --primary-color: #4CAF50;
+    --danger-color: #da3b30;
+    --pending-color: #ff9800;
+    --light-gray: #f5f5f5;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+    --text-light: #666;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+
+  }
+  
+  .header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+    color: var(--text-color);
+  }
+  
+  .header p {
+    color: var(--text-light);
+    font-size: 16px;
+  }
+  
+  .loading, .error_message, .no_sellers {
+    text-align: center;
+    padding: 30px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .error_message {
+    color: var(--danger-color);
+  }
+  
+  .seller_card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  
+  .seller_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--light-gray);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .seller_header h2 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .seller_content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .column {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px;
+  }
+  
+  .column_actions {
+    flex: 1;
+    min-width: 250px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fafafa;
+    border-left: 1px solid var(--border-color);
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  /* .pending {
+    background-color: var(--pending-color);
+    color: white;
+  }
+  
+  .approved {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .rejected {
+    background-color: var(--danger-color);
+    color: white;
+  } */
+  
+  .info_row {
+    margin-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+  }
+  
+  .info_row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  
+  .label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  
+  .value {
+    display: block;
+  }
+  
+  /* .documents_container {
+    margin-bottom: 20px;
+  }
+  
+  .documents_container h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  
+  .document_links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .document_link {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: var(--light-gray);
+    border-radius: 4px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  } */
+  
+  .document_link:hover {
+    background-color: #e9e9e9;
+  }
+  
+  .action_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 16px;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+  }
+  
+  .approve_btn {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .reject_btn {
+    background-color: var(--danger-color);
+    color: white;
+  }
+  
+  @media (max-width: 900px) {
+    .seller_content {
+      flex-direction: column;
+    }
+    
+    .column, .column_actions {
+      width: 100%;
+    }
+    
+    .column_actions {
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .action_buttons {
+      flex-direction: row;
+    }
+    
+    .btn {
+      flex: 1;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .info_row {
+      flex-direction: column;
+    }
+    
+    .action_buttons {
+      flex-direction: column;
+    }
+  }

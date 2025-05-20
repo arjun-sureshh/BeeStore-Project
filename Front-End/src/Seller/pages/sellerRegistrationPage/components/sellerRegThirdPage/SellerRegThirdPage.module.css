@@ -1,0 +1,159 @@
+.full{
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+}
+
+.border{
+    border-bottom: 1px solid rgb(138, 138, 138);
+    padding-block: 20px;
+}
+.first{
+    background-color: rgb(255, 255, 255);
+    width: 50vw;
+    margin-left: 40vh;
+}
+.mobile{
+    background-color: rgb(255, 255, 255);
+    width: 50vh;
+    /* height: 20px; */
+    /* margin-top: 20px; */
+    margin-left: 40vh;
+}
+.phone{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    color: rgb(7, 4, 51);
+    width: 120vh;
+    height: 30px;
+    margin-top: 20px;
+    margin-left: 40vh;
+    
+}
+.mobicon{
+    font-size: 20px;
+}
+.mobnum{
+    margin-left: 6px;
+    font-size: 14px;
+}
+.verified{
+    display: flex;
+    background-color: rgb(209, 250, 209);
+    margin-left: 80vh;
+    width: 70px;
+    height: 20px;
+    border-radius: 5px;
+    justify-content: center;
+    font-size: 13px;
+    align-items: center;
+    border: solid 1px rgb(237, 255, 238);
+    color: rgb(22, 141, 28);
+}
+.emailtxt{
+    margin-left: 6px;
+    font-size: 14px;
+}
+.resend{
+    display: flex;
+    background-color: rgb(237, 252, 255);
+    margin-left:70vh;
+    width: 90px;
+    height: 20px;
+    border-radius: 5px;
+    justify-content: center;
+    font-size: 11px;
+    align-items: center;
+    font-weight: 500;
+    border: solid 1px rgb(255, 255, 255);
+    color: rgb(23, 35, 204);
+}
+
+.secmain{
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid gray;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    /* padding-inline: 17vw; */
+}
+.id{
+    width: 60vh;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+    font-size: 14px;
+}
+
+.fnamgst{
+    margin-top: 15px;
+    width: 100%;
+}
+
+.third{
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid gray;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+}
+.store{
+    width: 96vh;
+    margin-left: 38vh;
+    padding-block: 20px ;
+    background-color: rgb(255, 255, 255);
+
+}
+.storee{
+    width: 60vh;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+    font-size: 14px;
+}
+.fnam{
+    margin-top: 15px;
+    width: 100%;
+    /* height: 59px; */
+}
+.display{
+    width:80vh;
+    height: 20px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 10px;
+    font-size: 14px;
+    color: rgb(23, 180, 31);
+    font-weight: 500;
+}
+.save{
+    display: flex;
+    width: 80px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(43, 72, 201);
+    margin-top: 14px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+  
+}
+.save:active{
+    color: blue;
+    background-color: rgb(246, 251, 255);
+}
+.borderRed{
+    border-color: rgb(220, 6, 6) !important;
+}
+.errorMsg{
+    position: relative;
+    margin-top: 4px;
+    /* left: 300px; */
+    color: rgb(140, 0, 0);
+    p{
+        font-size: small;
+    }
+}

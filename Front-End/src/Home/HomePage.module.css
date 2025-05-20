@@ -1,0 +1,200 @@
+.body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navBar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bannerSec {
+  width: 100%;
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.categoriesSection {
+  width: 100%;
+  max-width: 1400px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.categoryCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.categoryCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.categoryCard:hover {
+  transform: scale(1.05);
+}
+
+.categoryOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.categoryCard:hover .categoryOverlay {
+  opacity: 1;
+}
+
+.categoryOverlay h3 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.productListing {
+  width: 100%;
+  max-width: 1400px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.footer {
+  width: 100%;
+  margin-top: auto;
+  background-color: #212121;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.loading,
+.error {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #333;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .bannerSec {
+    padding: 10px;
+  }
+
+  .categoriesSection {
+    padding: 10px;
+  }
+
+  .productListing {
+    padding: 10px;
+    gap: 30px;
+  }
+
+  .categoryCard img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bannerSec {
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+  }
+
+  .categoriesSection {
+    padding: 5px;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .categoryCard img {
+    height: 160px;
+  }
+
+  .productListing {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading,
+  .error {
+    font-size: 16px;
+  }
+
+  .bannerSec {
+    padding: 0;
+  }
+
+  .categoriesSection {
+    padding: 5px;
+  }
+
+  .sectionTitle {
+    font-size: 20px;
+  }
+
+  .categoryCard img {
+    height: 140px;
+  }
+
+  .categoryOverlay h3 {
+    font-size: 16px;
+  }
+
+  .productListing {
+    padding: 5px;
+    gap: 15px;
+  }
+}

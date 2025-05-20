@@ -1,0 +1,46 @@
+.body{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgb(215, 215, 215);
+}
+.disableBorder{
+    border-bottom: none;
+}
+.nameSection{
+    display: flex;
+    padding: 10px;
+    margin-left: 10px;
+}
+.headName{
+    width: calc(100% - 26px);
+    padding-left: 20px;
+    font-size: 16px;
+    font-weight: 550;
+    color: #3b3a3a;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+.subBody{
+    /* padding: 10px; */
+    
+    width: 100%;
+    margin-bottom: 7px;
+}
+.subNames{
+    margin: 4px;
+    font-size: 15px;
+    color: #878787;
+    cursor: pointer;
+    padding-left: 20%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    
+}
+.subNames:hover{
+    background-color: rgb(64, 234, 234,0.2);
+}
+.subNames:active{
+    color: rgb(10, 31, 168);
+    background-color: rgb(64, 206, 234, 0.5);
+}

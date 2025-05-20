@@ -1,0 +1,82 @@
+/* .container {
+  width: 100%;
+  min-height: 100vh; */
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1556740738-6b4d6b8b7b1b") no-repeat center center/cover; */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+/* Navigation Bar */
+.navbar {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.logo {
+    color: #fcfcfc;
+  font-size: 24px;
+  font-family: cursive;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks li {
+  cursor: pointer;
+}
+
+.sellerButton {
+  background: linear-gradient(145deg, #4a00e0, #8e2de2);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 60vh;
+  color: white;
+}
+
+.heroContent h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.heroContent p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.registerButton {
+  background: linear-gradient(145deg, #ff8c00, #ff2e00);
+  color: white;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.registerButton:hover {
+  opacity: 0.8;
+}

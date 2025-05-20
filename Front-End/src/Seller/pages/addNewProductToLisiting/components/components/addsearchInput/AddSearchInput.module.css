@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.attributeSection {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    align-items: center;
+    margin-right: 20%;
+    justify-content: end;
+    align-items: start;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+.headName {
+    /* -webkit-box-align: center; */
+    align-items: center;
+    display: flex;
+    margin-right: 50px;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: rgb(91, 92, 92);
+}
+
+.inputContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.inputsection{
+    display: flex;
+    flex-direction: column;
+}
+.input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.addButton {
+    background-color: #dcdcdc;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.addButton:hover {
+    background-color: #c5c5c5;;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.deleteButton {
+    background-color: #dcdcdc;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.deleteButton:hover {
+    background-color: #c5c5c5;
+}

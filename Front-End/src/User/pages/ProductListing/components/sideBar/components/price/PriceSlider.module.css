@@ -1,0 +1,62 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .slider {
+    padding: 0 8px;
+  }
+  
+  .minMax {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 0 8px;
+  }
+  
+  .min,
+  .max {
+    flex: 1;
+  }
+  
+  .minMax span {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .dropdownToggle {
+    border: 1px solid #ccc !important;
+    padding: 4px 8px !important;
+    font-size: 13px !important;
+    color: #333 !important;
+    background-color: #fff !important;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .dropdownMenu {
+    min-width: 100px;
+  }
+  
+  .dropdownItem {
+    font-size: 13px;
+    padding: 4px 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .minMax {
+      flex-direction: column;
+      gap: 8px;
+    }
+  
+    .min,
+    .max {
+      width: 100%;
+    }
+  
+    .dropdownToggle {
+      font-size: 12px !important;
+    }
+  }

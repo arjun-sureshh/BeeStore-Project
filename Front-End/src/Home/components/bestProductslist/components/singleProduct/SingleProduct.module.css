@@ -1,0 +1,152 @@
+.body {
+  width: 250px;
+  height: 260px;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 10px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.body:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.imgSec {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.imgSec img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.imgSec:hover img {
+  transform: scale(1.1);
+}
+
+.quickViewButton {
+  position: absolute;
+  bottom: 10px;
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.body:hover .quickViewButton {
+  opacity: 1;
+}
+
+.quickViewButton:hover {
+  background: linear-gradient(90deg, #0056b3, #003d82);
+}
+
+.nameSec {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 5px;
+}
+
+.productName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+.starIcon {
+  color: #f5c518;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #048219;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .body {
+    height: 260px;
+  }
+
+  .imgSec {
+    height: 150px;
+  }
+
+  .productName {
+    font-size: 13px;
+  }
+
+  .rating {
+    font-size: 13px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+  .quickViewButton {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .body {
+    height: 240px;
+  }
+
+  .imgSec {
+    height: 130px;
+  }
+
+  .productName {
+    font-size: 12px;
+  }
+
+  .rating {
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 13px;
+  }
+
+  .quickViewButton {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+} 

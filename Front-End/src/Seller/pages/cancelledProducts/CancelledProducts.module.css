@@ -1,0 +1,158 @@
+.cancelledProductsContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cancelledProductsContainer h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .noProducts {
+    color: #666;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+    padding: 40px;
+  }
+  
+  .error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #d32f2f;
+    padding: 40px;
+  }
+  
+  .productsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .productCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .productCard:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .productImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  
+  .productCard h2 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .productCard p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .cancellationReason {
+    color: #d32f2f;
+    font-style: italic;
+    margin-top: 10px;
+  }
+  
+  .noReason {
+    color: #888;
+    font-style: italic;
+    margin-top: 10px;
+  }
+  
+  .replyButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .replyButton:hover {
+    background-color: #1565c0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .cancelledProductsContainer {
+      padding: 15px;
+    }
+  
+    .cancelledProductsContainer h1 {
+      font-size: 1.8rem;
+    }
+  
+    .productsGrid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+  
+    .productCard {
+      padding: 10px;
+    }
+  
+    .productImage {
+      height: 150px;
+    }
+  
+    .productCard h2 {
+      font-size: 1.2rem;
+    }
+  
+    .productCard p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cancelledProductsContainer {
+      padding: 10px;
+    }
+  
+    .cancelledProductsContainer h1 {
+      font-size: 1.5rem;
+    }
+  
+    .productsGrid {
+      grid-template-columns: 1fr;
+    }
+  
+    .productImage {
+      height: 120px;
+    }
+  
+    .replyButton {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+  }

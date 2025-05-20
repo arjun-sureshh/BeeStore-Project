@@ -1,0 +1,60 @@
+.whole{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 98vh;
+}
+.webmart{
+    font-weight: bold;
+    color: rgb(64, 30, 151);
+}
+.flow{
+    color: rgb(69, 0, 242);
+}
+.nav{
+    display: flex;
+    width: 100%;
+    height: 5%;
+   background-color: rgb(255, 255, 255);
+    font-size: larger;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.icon{
+    display: flex;
+    width: 203vh;
+    height: 6vh;
+    background-color: rgb(255, 255, 255);
+}
+.email{
+    margin-left: 40px;
+    display: flex;
+    width: 50px;
+    background-color: aquamarine;
+}
+.tick{
+   color: rgb(103, 103, 103);
+   font-size: x-large;
+}
+.ticktrue{
+    color: rgb(0, 141, 0);
+    font-size: x-large;
+}
+.tickk{
+    display: flex;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+.firsticon{
+    display: flex;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    margin-left: 40vh;
+}
+.seccon{
+    display: flex;
+    align-items: center;
+
+    background-color: rgb(255, 255, 255);
+    margin-left: 10vh;
+}

@@ -1,0 +1,14 @@
+.body{
+   display: flex;
+    width: 100vw;
+    height: 100%;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+.sideBar{
+    width: 20%;
+}
+.contentArea{
+    width: 60%;
+}

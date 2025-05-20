@@ -1,0 +1,50 @@
+.body {
+    padding-inline: 16px;
+    background: #fff;;
+    padding-inline: 22px;
+    padding-block: 8px;
+}
+
+.section1 {
+    font-size: 14px;
+    color: rgb(0, 102, 204);
+    display: flex;
+}
+
+.section2 {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.listinHeadName {
+    font-size: 22px;
+    color: rgb(61, 70, 77);
+
+}
+
+.addNewlisting {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 600;
+    letter-spacing: .8px;
+    min-width: 96px;
+    width: fit-content;
+    height: 36px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    white-space: nowrap;
+    background-color:#868b8e;
+
+    color: rgb(255, 255, 255);
+}
+.addNewlisting:hover{
+    transform: scale(1.04);
+    /* color: rgb(255, 255, 255); */
+    background-color:#afaeb1;
+}

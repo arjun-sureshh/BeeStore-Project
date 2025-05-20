@@ -1,0 +1,20 @@
+.body{
+    background: rgb(187, 187, 187);
+    border-radius: 5px;
+}
+
+.nameBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255, 255, 255);
+    color: rgb(96, 112, 128);
+    padding: 11px 15px;
+    margin-right: 10px;
+    border: 1px solid rgb(187, 187, 187);
+    border-radius: 4.5px;
+}
+.star{
+    color: red;
+    margin-bottom: 2px;
+}

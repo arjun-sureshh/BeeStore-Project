@@ -1,0 +1,18 @@
+.body {
+    padding: 20px;
+    background-color: #e7f1fa; /* Light grey background */
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .renderComponent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+  }

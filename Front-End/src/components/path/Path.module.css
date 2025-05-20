@@ -1,0 +1,21 @@
+.body{
+    width: 100%;
+   
+}
+.pathsection{
+ width: 100%;
+ display: flex;
+ justify-content: start;
+ align-items: center;
+}
+.path{
+    color: blue;
+    font-size: 14px;
+    cursor: pointer;
+}
+.icons{
+    font-size: 12px;
+    font-weight: 550;
+    color: rgb(143, 144, 144);
+    cursor: default;
+}

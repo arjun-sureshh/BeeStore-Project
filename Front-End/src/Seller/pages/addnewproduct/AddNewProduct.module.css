@@ -1,0 +1,76 @@
+.body{
+    display: flex;
+    flex-direction: column;
+    gap:80px;
+}
+.secSection{
+    padding-inline: 20px;
+    background-color: #fff;
+    box-shadow: 5px 5px 15px rgba(9, 9, 9, 0.3);   
+   
+}
+.headingSection{
+    display: flex;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 540;
+    border-bottom: 1px solid rgba(105, 105, 105, 0.856);
+    padding-block: 10px;
+}
+
+.headName1{
+    cursor: pointer;
+    color: rgba(27, 27, 27, 0.844);
+}
+.headName2{
+    cursor: pointer;
+    color: rgba(27, 27, 27, 0.844);
+
+}
+.headName1:active{
+    border-bottom: 2px solid blue;
+    transform: scale(1.1);
+}
+.headName2:active{
+    transform: scale(1.1);
+    border-bottom: 2px solid blue
+}
+thead{
+    color: rgb(142, 141, 141);
+}
+tr,th{
+    font-weight: 400px;
+   
+}
+
+.imgTh{
+    display: flex;
+   gap: 10px;
+   align-items: center;
+}
+.imgInproductDetials{
+    img{
+        width: 50px;
+        height: 50px;
+    }
+}
+.productNamesec{
+    text-align: left;
+}
+.productName{
+    font-size: 13px;
+    line-height: 11px;
+    color: rgb(121, 122, 124);
+}
+.SkU_IDSec{
+    font-size: 12px;
+    color: rgb(82, 82, 82);
+}
+.SKU_ID{
+    font-size: 13.9px;
+    color: black;
+}
+.Continue{
+    color: blue;
+    cursor: pointer;
+}

@@ -1,0 +1,84 @@
+.body {
+    background-color: rgb(255, 255, 255);
+    min-height: min-content;
+    padding-inline: 9px;
+    height: 80px;
+    padding-block: 7px;
+        box-shadow: 5px 5px 20px rgb(209, 207, 207);
+
+    border-radius: 1px;
+
+}
+
+.titleSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon_title {
+    display: flex;
+    color: gray;
+    gap: 10px;
+    align-items: center;
+}
+
+.editBtn {
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 600;
+    width: fit-content;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    white-space: nowrap;
+    color: rgb(0, 102, 204);
+    padding: 0px 8px;
+    text-transform: uppercase;
+    height: fit-content;
+    min-width: fit-content;
+    background-color: transparent;
+}
+.editBtn:hover{
+    color: blue;
+}
+.cancle {
+    color: rgb(0, 102, 204);
+    padding: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.flex {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.savebtn {
+    padding: 7px;
+    color: rgb(0, 102, 204);
+    border: 1.5px solid rgb(0, 102, 204);
+    border-radius: 6px;
+    padding-inline: 18px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .5px;
+}
+.cancle:hover,
+.savebtn:hover {
+    color: blue;
+    border-color: blue;
+}
+.displayInputContainer{
+    height: 250px;
+    overflow: scroll;
+}
+
+.iconSaved{
+    color: green;
+}
+.icon{
+    font-size: large;
+}

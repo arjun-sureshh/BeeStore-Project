@@ -1,0 +1,188 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f1f3f6;
+    font-family: Roboto, Arial, sans-serif;
+  }
+  
+  .registerContainer {
+    display: flex;
+    width: 100%;
+    max-width: 850px;
+    min-height: 600px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+  
+  .leftPanel {
+    width: 40%;
+    background-color: #2874f0;
+    color: #fff;
+    padding: 40px 33px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  
+  .welcomeContent {
+    margin-bottom: 40px;
+  }
+  
+  .welcomeTitle {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  
+  .welcomeText {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #dbdbdb;
+  }
+  
+  .illustration {
+    height: 200px;
+    background-image: url('../../../assets/computer-security-with-login-password-padlock-removebg-preview.png');
+    background-position: center 85%;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .rightPanel {
+    width: 60%;
+    padding: 40px 35px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+  .form {
+    width: 100%;
+  }
+  
+  .inputGroup {
+    margin-bottom: 20px;
+  }
+  
+  .inputLabel {
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    color: #212121;
+    margin-bottom: 8px;
+  }
+  
+  .inputField {
+    width: 100%;
+    height: 44px;
+    padding: 8px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  .inputField:focus {
+    border-color: #2874f0;
+  }
+  
+  .inputError {
+    border-color: #ff6161;
+  }
+  
+  .errorMessage {
+    color: #ff6161;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+  }
+  
+  .termsContainer {
+    margin-bottom: 24px;
+  }
+  
+  .termsText {
+    font-size: 12px;
+    color: #878787;
+    line-height: 1.5;
+  }
+  
+  .link {
+    color: #2874f0;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  
+  .continueButton {
+    width: 100%;
+    height: 48px;
+    background-color: #fb641b;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  
+  .continueButton:disabled {
+    background-color: #ffa176;
+    cursor: not-allowed;
+  }
+  
+  .continueButton:hover:not(:disabled) {
+    background-color: #e85c15;
+  }
+  
+  .loginLinkContainer {
+    text-align: center;
+  }
+  
+  .loginLink {
+    color: #2874f0;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  .loginLink:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .registerContainer {
+      flex-direction: column;
+      max-width: 400px;
+    }
+  
+    .leftPanel, .rightPanel {
+      width: 100%;
+      padding: 25px 20px;
+    }
+  
+    .leftPanel {
+      min-height: 160px;
+    }
+  
+    .welcomeTitle {
+      font-size: 22px;
+    }
+  
+    .welcomeText {
+      font-size: 16px;
+    }
+  
+    .illustration {
+      display: none;
+    }
+  }

@@ -1,0 +1,32 @@
+.body{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-block: 10px;
+    border: 1px dotted ;
+    padding-inline: 15px;
+    border-radius: 3px;
+}
+.section1{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.addressType{
+    font-size: small;
+    font-weight: 550;
+    background-color: rgba(59, 58, 58, 0.09);
+    height: fit-content;
+    padding: 2px;
+}
+.fullName{
+    font-size: medium;
+    font-weight: bold;
+}
+.mobileNumber{
+    color: rgb(75, 74, 75);
+}
+.pinNo{
+    font-weight: 550;
+}

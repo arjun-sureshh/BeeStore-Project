@@ -1,0 +1,215 @@
+.body {
+    background-color: rgb(29, 29, 29);
+    color: #d1cdcd;
+    display: flex;
+    justify-content: space-evenly;
+    padding-block: 10px;
+    align-items: center;
+  }
+  
+  .webName {
+    font-size: 26px;
+    font-family: cursive;
+    color: #e3c7a1;
+  }
+  
+  .sections {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .searchBar {
+    display: flex;
+    position: relative;
+    background-color: #f9c241;
+    border-radius: 3px;
+    justify-content: flex-start;
+    height: 70%;
+    min-width: 304px;
+    width: 500px;
+    margin: 0 auto 0 12px;
+    align-items: center;
+  }
+  
+  .searchBar input {
+    padding: 0 16px;
+    border-radius: 2px 0 0 2px;
+    border: 0;
+    outline: 0 none;
+    font-size: 14px;
+    height: 36px;
+    width: 100%;
+    background-color: #f3f0f0;
+  }
+  
+  .searchIcon {
+    border: 1px solid var(--color-white-bg);
+    background-color: var(--color-white-bg);
+    height: 36px;
+    width: 44px;
+    border-radius: 2px;
+    cursor: pointer;
+    padding: 4px 12px 0 8px;
+    color: rgb(52, 89, 238);
+  }
+  
+  .loginReg {
+    font-size: small;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .logcon {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .navIcons {
+    font-size: 25px;
+  }
+  
+  .flex {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .log,
+  .reg {
+    font-size: 14px;
+  }
+  
+  .newlistDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    color: #212121;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .wishList {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    color: #aaaaaa;
+  }
+  
+  .wishList:hover {
+    transform: scale(1.02);
+    color: rgb(255, 255, 255);
+  }
+  
+  .cart {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    color: #aaaaaa;
+  }
+  
+  .cart:hover {
+    transform: scale(1.02);
+    color: rgb(255, 255, 255);
+  }
+  
+  .becomeSeller {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #aaaaaa;
+  }
+  
+  .becomeSeller:hover {
+    transform: scale(1.02);
+    color: rgb(255, 255, 255);
+  }
+  
+  .cartLink {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .searchBar {
+      width: 400px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .body {
+      flex-direction: column;
+      padding: 10px;
+      gap: 10px;
+    }
+  
+    .sections {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .searchBar {
+      width: 100%;
+      max-width: 300px;
+    }
+  
+    .loginReg,
+    .wishList,
+    .cart,
+    .becomeSeller {
+      margin: 5px 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .webName {
+      font-size: 20px;
+    }
+  
+    .searchBar {
+      min-width: 200px;
+    }
+  
+    .navIcons {
+      font-size: 20px;
+    }
+  
+    .log,
+    .reg,
+    .whilistName {
+      font-size: 12px;
+    }
+  }
+  
+  .suggestionDropdown {
+    position: absolute;
+    margin-top: 0.6px;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .suggestionItem {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .suggestionItem:hover {
+    background: #f0f0f0;
+  }

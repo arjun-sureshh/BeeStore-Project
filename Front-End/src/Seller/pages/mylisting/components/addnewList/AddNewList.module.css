@@ -1,0 +1,27 @@
+.body{
+   position: absolute;
+    height: fit-content;
+    width: fit-content;
+    max-width: 280px;
+    margin-top: 8px;
+    
+    z-index: 9999;
+    user-select: none;
+    
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: rgb(255, 255, 255);
+    box-shadow: rgb(193, 199, 208) 0px 0px 4px;
+    border-radius: 8px;
+}
+.singlelisting{
+    display: block;
+    cursor: pointer;
+    color: rgb(61, 70, 77);
+    padding: 8px 12px;
+
+}
+.singlelisting:hover{
+    background-color: rgba(168, 192, 229, 0.441);
+}

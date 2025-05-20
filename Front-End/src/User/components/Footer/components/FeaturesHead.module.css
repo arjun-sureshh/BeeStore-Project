@@ -1,0 +1,19 @@
+.body{
+   display: flex;
+   flex-direction: column;
+   gap: 9px; 
+}
+.head{
+    border-bottom: 1px solid whitesmoke;
+}
+.headName{
+    color: rgb(173, 174, 175);
+}
+.headBody{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.bodyName{
+    color: white;
+}

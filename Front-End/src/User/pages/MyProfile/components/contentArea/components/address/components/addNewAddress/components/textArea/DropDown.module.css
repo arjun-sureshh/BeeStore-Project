@@ -1,0 +1,84 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.headName {
+    align-items: center;
+    display: flex;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #5b5c5c;
+    margin-bottom: 5px;
+}
+
+.attributeSection {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.select {
+    position: relative;
+    border: 1.5px solid #a0a0a0;
+    border-radius: 6px;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    width: 260px;
+
+}
+
+.select:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.select select {
+    width: 260px;
+    height: 52px;
+    background: transparent;
+    background-color: rgb(222, 194, 162, .4);
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    appearance: none; /* Removes default arrow */
+}
+
+/* Custom dropdown arrow */
+.select::after {
+    content: '▼';
+    font-size: 12px;
+    color: #333;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.select select:focus {
+    border: none;
+    outline: none;
+}
+
+.select select:disabled {
+    background: #f2f2f2;
+    color: #888;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .select {
+        width: 100%;
+    }
+}

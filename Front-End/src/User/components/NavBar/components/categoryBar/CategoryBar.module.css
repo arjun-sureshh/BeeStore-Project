@@ -1,0 +1,118 @@
+.categoryBar {
+    width: 100%;
+    height: 40px;
+    background-color: #cfcfcf3f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16);
+    position: relative;
+  }
+  
+  .categoryDropdown {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .categories {
+    font-size: 0.9em;
+    font-family: Inter, -apple-system, Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+  }
+  
+  .categories:hover {
+    color: blue;
+  }
+  
+  .arrow {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .popUpSection {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100vw;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .mobileToggle {
+    display: none;
+    font-size: 1em;
+    cursor: pointer;
+    padding: 10px;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .mobileSubcategories {
+    display: none;
+  }
+  
+  .loading {
+    font-size: 0.9em;
+    padding: 10px;
+    color: #555;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .categoryBar {
+      height: auto;
+    }
+  
+    .mobileToggle {
+      display: flex;
+      width: 100%;
+      justify-content: flex-start;
+    }
+  
+    .categoryDropdown {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #f9f9f9;
+      padding: 10px;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    .categoryDropdown.mobileOpen {
+      display: flex;
+    }
+  
+    .categories {
+      width: 100%;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+    }
+  
+    .mobileSubcategories {
+      display: block;
+      padding: 10px 20px;
+      background-color: #fff;
+      width: 100%;
+    }
+  
+    .popUpSection {
+      display: none; /* Hide desktop popup on mobile */
+    }
+  }

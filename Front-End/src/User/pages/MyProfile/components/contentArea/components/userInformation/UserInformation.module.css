@@ -1,0 +1,113 @@
+.body{
+display: flex;
+flex-direction: column;
+gap: 23px;
+}
+.headNameSection{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.headName{
+    font-size: 18px;
+    font-weight: 550;
+}
+.inputBoxSection{
+    display: flex;
+    gap: 30px;
+}
+.inputBox{
+    display: flex;
+    flex-direction: column;
+    input{
+        width: 250px;
+        height: 50px;
+        font-size: 16px;
+        outline: none;
+        border-radius: 2px;
+        border: 1px solid rgb(185, 181, 181);
+    }
+}
+.editBtn{
+   font-size: .9em; 
+   color: rgb(238, 127, 8);
+   cursor: pointer;
+}
+.radio{
+    display: flex;
+   align-items: center;
+   gap: 10px;
+  p{
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: 400;
+    color: rgb(100, 101, 102);
+  }
+  
+}
+input[type="radio"] {
+    appearance: none; /* Remove the default browser styling */
+    -webkit-appearance: none; /* For Safari */
+    width: 20px;
+      height: 20px;
+      border: 2px solid gray;
+      border-radius: 50%;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+  }
+input[type="radio"]:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  /* When the radio button is checked */
+  input[type="radio"]:checked {
+    border-color: rgb(17, 71, 40);
+  }
+
+  input[type="radio"]:checked:before {
+    content: "";
+    display: block;
+    width: 14.5px; /* Inner circle size */
+    height: 14.5px;
+    background-color: rgb(6, 109, 28);
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 2px;
+  }
+
+  input[type="radio"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.5; /* Optional: make the radio button appear faded */
+    border-color: #dcdcdc; /* Optional: change border color when disabled */
+  }
+  
+  input[type="radio"]:disabled:checked::before{
+    content: "";
+    display: block;
+    width: 14.5px; /* Inner circle size */
+    height: 14.5px;
+    background-color: rgb(163, 163, 163);
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 2px;
+  }
+ 
+  .disabled{
+    color: rgb(168, 169, 170);
+    cursor: not-allowed;
+  }
+  .errorMessage {
+    color: #ff6161;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+  }
+  

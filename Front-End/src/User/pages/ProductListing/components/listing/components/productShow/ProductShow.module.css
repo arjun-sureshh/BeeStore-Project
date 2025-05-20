@@ -1,0 +1,162 @@
+/* Card container for each product */
+.card {
+    width: 20.6%; /* Fits 4 cards in a row with some margin */
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    margin: 1%; /* Adds spacing between cards */
+    /* cursor: pointer; */
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    border-color: #dcdcdc;
+  }
+  
+  /* Image Section */
+  .imageSection {
+    /* border: 3px solid red; */
+    position: relative;
+    width: 100%;
+    padding-top: 100%; 
+  }
+  
+  .productImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures image fits without distortion */
+    background-color: #f5f5f5; /* Light background for empty space */
+  }
+  
+  /* Wishlist Icon */
+  .wishlist {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: color 0.2s ease;
+  }
+  
+  .wishlistActive {
+    color: #da0606;
+  }
+  
+  .wishlistInactive {
+    color: #9f9f9e;
+  }
+  
+  /* Details Section */
+  .details {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  
+  .details:hover .title,
+  .details:hover .sellingPrice {
+    color: rgb(48, 48, 207);
+  }
+  /* Product Title */
+  .title {
+    font-size: 14px; /* ~80% of default 16px */
+    font-weight: 600;
+    font-family: Inter, -apple-system, Helvetica, Arial, sans-serif;
+    color: #212121;
+    line-height: 1.2;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  
+  /* Rating */
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .avgRating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background-color: #169630;
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 12px; /* ~60% of 16px */
+    font-weight: 500;
+  }
+  
+  .ratingCount {
+    font-size: 11px; /* ~70% of 16px */
+    color: #878787;
+    font-weight: 400;
+  }
+  
+  /* Price Row */
+  .priceRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .sellingPrice {
+    font-size: 16px; /* Slightly larger for emphasis */
+    font-weight: 700;
+    color: #212121;
+  }
+
+  
+  .mrp {
+    font-size: 12px;
+    font-weight: 300;
+    color: #878787;
+    text-decoration: line-through;
+  }
+  
+  .discount {
+    font-size: 12px;
+    font-weight: 600;
+    color: #38ac3e;
+  }
+  
+  /* Color Section */
+  .color {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .colorSwatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+  }
+  
+  /* Seller */
+  .seller {
+    font-size: 11px;
+    color: #666;
+    font-weight: 400;
+  }

@@ -1,0 +1,8 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 100vw;
+    background-color: #eeede7;
+    min-height: 100vh;
+}
