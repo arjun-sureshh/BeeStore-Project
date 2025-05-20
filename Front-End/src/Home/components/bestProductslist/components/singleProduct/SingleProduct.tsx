@@ -9,7 +9,7 @@ interface SingleProductProps {
 }
 
 const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
-  const baseURL = import.meta.env.VITE_BASE_URL;
+  const baseURL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const handleNavigate = () => {
