@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from "./sellerRegistration.module.css";
+import styles from "./SellerRegistration.module.css";
 import SellerRegFirstPage from "./components/sellerRegistrationFirstPage/SellerRegFirstPage";
 import SellerRegSecondPage from "./components/sellerRegSecondPage/SellerRegSecondPage";
 import SellerRegThirdPage from "./components/sellerRegThirdPage/SellerRegThirdPage";
