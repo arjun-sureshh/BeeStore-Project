@@ -26,7 +26,6 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   const value = useSelector(
     (state: RootState) => state.toggle.productFields[name],
   );
-  console.log(value, "select color:");
 
   // Handler to update Redux state when the select value changes
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

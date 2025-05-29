@@ -566,43 +566,98 @@ const ProductAddingSections: React.FC = () => {
 
   // handel image
 
-  const handleImage = async (variantID: string | null) => {
-    if (!productImage || productImage.length === 0) {
-      console.error("No files selected");
+const handleImage = async (variantID: string | null) => {
+  if (!productImage || productImage.length === 0) {
+    console.error("No files selected in productImage");
+    alert("Please select at least one file to upload.");
+    return;
+  }
+  if (!variantID) {
+    console.error("Missing Product Variant ID");
+    alert("Product Variant ID is required.");
+    return;
+  }
+
+  // Filter valid File objects
+  const validFiles = productImage.filter(
+    (item): item is File => {
+      if (!(item instanceof File)) return false;
+      return typeof item.name === "string" && item.name.length > 0 && typeof item.type === "string" && item.type.length > 0;
+    }
+  );
+  if (validFiles.length === 0) {
+    console.error("No valid File objects:", productImage);
+    alert("No valid files found. Ensure selected files are valid images or videos.");
+    return;
+  }
+  if (validFiles.length > 5) {
+    console.error("Too many files selected:", validFiles.length);
+    alert("Maximum 5 files allowed.");
+    return;
+  }
+
+  // Log invalid items
+  const invalidItems = productImage.filter(item => !(item instanceof File));
+  if (invalidItems.length > 0) {
+    console.warn("Invalid items in productImage:", invalidItems);
+  }
+
+  // Validate file properties
+  const maxSize = 10 * 1024 * 1024; // 10MB
+  for (const file of validFiles) {
+    if (file.size && file.size > maxSize) {
+      console.error(`File too large: ${file.name}, size: ${file.size} bytes`);
+      alert(`File ${file.name} exceeds the 10MB limit.`);
       return;
     }
-    if (!variantID) {
-      console.error("Missing Product Variant ID in update image");
-      return;
-    }
+    console.log(`Valid file: ${file.name}, type: ${file.type}, size: ${file.size || 'unknown'} bytes`);
+  }
 
-    try {
-      const formData = new FormData();
+  try {
+    const formData = new FormData();
+    validFiles.forEach((file, i) => {
+      formData.append("photos", file);
+      console.log(`Appending file ${i + 1}: ${file.name}, type: ${file.type}, size: ${file.size || 'unknown'} bytes`);
+    });
+    formData.append("productVariantId", variantID);
 
-      productImage.forEach((file) => {
-        formData.append("photos", file); // Ensure correct key name
-      });
+    // Debug FormData contents
+    console.log("FormData contents:");
+    formData.forEach((value, key) => console.log(`${key}:`, value));
 
-      formData.append("productVariantId", variantID); // Ensure correct field name
+    console.log("Sending POST /api/storage, variantID:", variantID);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/gallery/gallery",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+    const response = await axios.post(
+      "http://localhost:5000/api/gallery",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-      );
+      },
+    );
 
-      console.log("Upload success:", response.data);
-    } catch (error: any) {
-      console.error("Error uploading images:", error);
-      if (error.response) {
-        console.error("Server Response:", error.response.data);
+    console.log("Upload success:", response.data);
+    alert("Images uploaded successfully!");
+    return response.data.images;
+  } catch (error: any) {
+    console.error("Error uploading images:", error);
+    let errorMessage = "Failed to upload images.";
+    if (axios.isAxiosError(error)) {
+      if (error.code === "ERR_NETWORK") {
+        errorMessage = "Cannot connect to the server. Ensure the backend is running at http://localhost:5000.";
+        console.error("Network error details:", error.message);
+      } else if (error.response) {
+        errorMessage = error.response.data.error || "Server error occurred.";
+        console.error("Server response:", error.response.data);
+      } else {
+        errorMessage = "Request setup error: " + error.message;
       }
     }
-  };
+    alert(errorMessage);
+    throw error;
+  }
+};
 
   // handle the stock field
   const handleStock = async (variantID: string | null) => {
@@ -834,8 +889,6 @@ const ProductAddingSections: React.FC = () => {
         // Check only required fields
         alert(`Please fill in the ${key} field.`);
 
-        // Focus on the corresponding input field
-        //   inputRefs[key]?.current?.focus();
         return;
       }
     }
@@ -850,12 +903,14 @@ const ProductAddingSections: React.FC = () => {
     if (!variantID) {
       variantID = await createProductVaraint(); // Ensure it completes before proceeding
     }
+console.log(variantID,"vareintid in hanndle send tc");
 
     await updateProductVariant(variantID);
 
+   handleImage(variantID);
+
     handleKeyFeatures(variantID);
     handleSearchKeywords(variantID);
-    handleImage(variantID);
     fetchedData.forEach((variant) => {
       variant.stockqty
         ? handleUpdateTheStock(variantID)

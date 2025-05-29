@@ -89,7 +89,9 @@ const AddNewProduct: React.FC = () => {
 
     const fetchListingProduct = async () => {
       const sellerId = sellerData._id;
-
+      if (!sellerId) {
+        return
+      }
       try {
         const response = await axios.get(
           `http://localhost:5000/api/product/fetchallproducts/${sellerId}`,

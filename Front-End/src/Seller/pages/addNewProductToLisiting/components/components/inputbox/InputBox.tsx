@@ -33,7 +33,7 @@ const InputBox = React.forwardRef<HTMLInputElement, InputBoxProps>(
             <input
               type={type}
               name={name}
-              defaultValue={value}
+              value={value}
               ref={ref as React.Ref<HTMLInputElement>} // ✅ Ensure correct type
               onChange={(e) =>
                 dispatch(

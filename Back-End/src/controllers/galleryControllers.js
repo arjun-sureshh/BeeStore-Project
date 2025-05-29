@@ -5,7 +5,13 @@ const Gallery = require("../models/galleryModels");
 const getGallery = async (req, res) => {
   try {
     const photoDetails = await Gallery.find();
-    res.status(200).json(photoDetails);
+    const imageData = photoDetails.map((image) => ({
+      _id: image._id,
+      filename: image.filename,
+      fileId: image.photos,
+      photos: `${req.protocol}://${req.get("host")}/api/gallery/file/${image.photos}`,
+    }));
+    res.status(200).json({ message: "Gallery fetched successfully", data: imageData });
   } catch (error) {
     res.status(500).json({ message: "Error fetching gallery", error });
   }
@@ -24,15 +30,21 @@ const getImagesByProductVaraintId = async (req, res) => {
     console.log("Query Result:", productImageDetails); // Debugging log
 
     if (!productImageDetails.length) {
-      // Fix condition
       return res
         .status(404)
         .json({ message: "Product Images not found with the given ID." });
     }
 
+    const imageData = productImageDetails.map((image) => ({
+      _id: image._id,
+      filename: image.filename,
+      fileId: image.photos,
+      photos: `${req.protocol}://${req.get("host")}/api/gallery/file/${image.photos}`,
+    }));
+
     res.status(200).json({
       message: "Product Images fetched successfully",
-      data: productImageDetails,
+      data: imageData,
     });
   } catch (error) {
     console.error(error);
@@ -44,39 +56,73 @@ const getImagesByProductVaraintId = async (req, res) => {
 
 const createGallery = async (req, res) => {
   try {
-    let { productVariantId } = req.body; // Ensure it's a let variable
+    const { productVariantId } = req.body;
 
     if (!productVariantId) {
+      console.error("Missing productVariantId");
       return res.status(400).json({ error: "Product Variant ID is required" });
     }
 
-    productVariantId = new mongoose.Types.ObjectId(String(productVariantId)); // Convert properly
+    if (!mongoose.Types.ObjectId.isValid(productVariantId)) {
+      console.error(`Invalid ObjectId: ${productVariantId}`);
+      return res.status(400).json({ error: "Invalid Product Variant ID" });
+    }
 
     if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ error: "No images uploaded" });
+      console.error("No files in req.files");
+      return res.status(400).json({ error: "No valid images uploaded" });
     }
 
-    let uploadedImages = [];
+    console.log("Raw req.files:", req.files); // Debug raw files
+    console.log("Processing files:", req.files.map(f => ({
+      filename: f.filename || 'undefined',
+      mime: f.mimetype || 'undefined',
+      size: f.size || 'undefined',
+      id: f.id || 'undefined'
+    })));
 
-    for (let file of req.files) {
-      const newImage = new Gallery({
-        varientId: productVariantId, // Ensure this matches your schema
-        photos: `/images/${file.filename}`,
-      });
+    const uploadedImages = [];
 
-      await newImage.save();
-      uploadedImages.push(newImage);
+    for (const file of req.files) {
+      if (!file || !file.id || !file.filename) {
+        console.error("Invalid file:", file);
+        continue;
+      }
+
+      try {
+        const newImage = new Gallery({
+          varientId: new mongoose.Types.ObjectId(productVariantId),
+          photos: file.id,
+          filename: file.filename,
+        });
+
+        await newImage.save();
+        console.log(`Saved Gallery document: ${newImage._id}`);
+        uploadedImages.push({
+          _id: newImage._id,
+          filename: newImage.filename,
+          fileId: newImage.photos,
+          url: `${req.protocol}://${req.get("host")}/api/storage/file/${newImage.photos}`,
+        });
+      } catch (saveError) {
+        console.error(`Error saving Gallery document for ${file.filename}:`, saveError);
+        continue;
+      }
     }
 
-    res
-      .status(201)
-      .json({
-        message: "Images uploaded successfully",
-        images: uploadedImages,
-      });
+    if (uploadedImages.length === 0) {
+      console.error("No Gallery documents saved");
+      return res.status(400).json({ error: "No valid images were saved" });
+    }
+
+    console.log("Upload completed:", uploadedImages);
+    res.status(201).json({
+      message: "Images uploaded successfully",
+      images: uploadedImages,
+    });
   } catch (error) {
-    console.error("Error saving images:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error in createGallery:", error);
+    res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
 };
 

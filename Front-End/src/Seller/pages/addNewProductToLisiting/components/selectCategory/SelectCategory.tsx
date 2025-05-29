@@ -34,7 +34,6 @@ const SelectCategory: React.FC<selectCategoryProps> = ({ sellerId }) => {
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchData(value);
-    console.log(value);
 
     if (value.trim() === "") {
       setFetchData([]);
@@ -63,14 +62,14 @@ const SelectCategory: React.FC<selectCategoryProps> = ({ sellerId }) => {
       sellerId: sellerId,
       categoryId: selectedCategory,
     };
-    console.log(productId);
+    // console.log(productId);
 
     try {
       const response = await axios.post(
         `http://localhost:5000/api/product`,
         data,
       ); // Send data directly
-      console.log("Product draft created:", response.data);
+      // console.log("Product draft created:", response.data);
       const productid = response.data.product._id;
       dispatch(toggleProductId(""));
       setTimeout(() => dispatch(toggleProductId(productid)), 0); // Reinsert after a short delay

@@ -3,7 +3,12 @@ const mongoose = require("mongoose");
 const gallerySchemaStructure = new mongoose.Schema(
   {
     photos: {
-      type: String, // Store only the image filename
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "uploads.files",
+      required: false,
+    },
+    filename: {
+      type: String,
       required: false,
     },
     varientId: {
@@ -12,7 +17,7 @@ const gallerySchemaStructure = new mongoose.Schema(
       required: false,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const Gallery = mongoose.model("productimage", gallerySchemaStructure);

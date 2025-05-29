@@ -3,14 +3,31 @@ const connectDB = require("./config/db");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
-
+const mongoose = require("mongoose");
 app.use(express.json());
 app.use(cors());
 
-app.use(express.static("./public"));
+// Initialize MongoDB connection and GridFS
+let gfs;
+connectDB().then(() => {
+  gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: "Uploads",
+  });
+  app.set("gfs", gfs);
+  console.log("MongoDB and GridFS initialized successfully");
+}).catch((error) => {
+  console.error("MongoDB connection failed:", error);
+  process.exit(1);
+});
 
+// Middleware to ensure gfs is available
+app.use((req, res, next) => {
+  if (!req.app.get("gfs")) {
+    return res.status(500).json({ error: "GridFS not initialized" });
+  }
+  next();
+});
 
-connectDB();
 
 const adminRouter = require("./routers/adminRouters");
 const userRouter = require("./routers/userRouters");
@@ -69,6 +86,12 @@ app.use("/api/specification", specification);
 app.use("/api/auth", auth);
 app.use("/api/userView", userViewRouter);
 app.use("/api/productUpload", productUpload);
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Global error:", err);
+  res.status(500).json({ error: "Internal Server Error", details: err.message });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running  on the Port ${PORT}`));
