@@ -582,12 +582,23 @@ const handleImage = async (variantID: string | null) => {
   const validFiles = productImage.filter(
     (item): item is File => {
       if (!(item instanceof File)) return false;
-      return typeof item.name === "string" && item.name.length > 0 && typeof item.type === "string" && item.type.length > 0;
+      const isValid = typeof item.name === "string" && item.name.length > 0 &&
+                      typeof item.type === "string" && item.type.length > 0 &&
+                      typeof item.size === "number" && item.size > 0;
+      if (!isValid) {
+        console.warn("Invalid File object:", {
+          name: item.name,
+          type: item.type,
+          size: item.size,
+          instance: item instanceof File
+        });
+      }
+      return isValid;
     }
   );
   if (validFiles.length === 0) {
     console.error("No valid File objects:", productImage);
-    alert("No valid files found. Ensure selected files are valid images or videos.");
+    alert("No valid files found. Ensure selected files have valid name, type, and size.");
     return;
   }
   if (validFiles.length > 5) {
@@ -605,19 +616,19 @@ const handleImage = async (variantID: string | null) => {
   // Validate file properties
   const maxSize = 10 * 1024 * 1024; // 10MB
   for (const file of validFiles) {
-    if (file.size && file.size > maxSize) {
+    if (file.size > maxSize) {
       console.error(`File too large: ${file.name}, size: ${file.size} bytes`);
       alert(`File ${file.name} exceeds the 10MB limit.`);
       return;
     }
-    console.log(`Valid file: ${file.name}, type: ${file.type}, size: ${file.size || 'unknown'} bytes`);
+    console.log(`Valid file: ${file.name}, type: ${file.type}, size: ${file.size} bytes`);
   }
 
   try {
     const formData = new FormData();
     validFiles.forEach((file, i) => {
       formData.append("photos", file);
-      console.log(`Appending file ${i + 1}: ${file.name}, type: ${file.type}, size: ${file.size || 'unknown'} bytes`);
+      console.log(`Appending file ${i + 1}: ${file.name}, type: ${file.type}, size: ${file.size} bytes`);
     });
     formData.append("productVariantId", variantID);
 
@@ -625,7 +636,7 @@ const handleImage = async (variantID: string | null) => {
     console.log("FormData contents:");
     formData.forEach((value, key) => console.log(`${key}:`, value));
 
-    console.log("Sending POST /api/storage, variantID:", variantID);
+    console.log("Sending POST /api/gallery, variantID:", variantID);
 
     const response = await axios.post(
       "http://localhost:5000/api/gallery",
@@ -658,7 +669,6 @@ const handleImage = async (variantID: string | null) => {
     throw error;
   }
 };
-
   // handle the stock field
   const handleStock = async (variantID: string | null) => {
     if (!productFields.stock) {

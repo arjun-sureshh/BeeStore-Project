@@ -22,11 +22,9 @@ const AddPhoto: React.FC<AddPhotoProps> = ({
   saved,
 }) => {
   const dispatch = useDispatch();
-  // const productId = useSelector((state: RootState) => state.toggle.productId);
   const images = useSelector((state: RootState) => state.toggle.images);
 
   const [upload, setUpload] = useState<File | null>(null);
-  //   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
   // Function to handle file selection
@@ -43,11 +41,18 @@ const AddPhoto: React.FC<AddPhotoProps> = ({
       setMessage("Please select a file before submitting.");
       return;
     }
+    console.log(upload.size,"this ios yhe file");
+    
+    if (typeof upload.size !== "number" || upload.size <= 0) {
+      console.error("Invalid file size:", upload);
+      setMessage("Selected file has invalid size. Please select a valid file.");
+      return;
+    }
     const reader = new FileReader();
     reader.readAsDataURL(upload); // Convert File to Base64
     reader.onloadend = () => {
       if (reader.result) {
-        dispatch(toggleAddImage(upload)); // Dispatch Base64 string
+        dispatch(toggleAddImage(upload)); // Dispatch File object
         setMessage("File added successfully!");
         setUpload(null);
         setTimeout(() => {
@@ -114,7 +119,7 @@ const AddPhoto: React.FC<AddPhotoProps> = ({
               className={styles.removeBtn}
               onClick={() => dispatch(toggleRemoveImage(index))}
             >
-              &times;
+              ×
             </button>
           </div>
         ))}

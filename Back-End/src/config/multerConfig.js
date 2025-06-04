@@ -15,6 +15,11 @@ const storage = new GridFsStorage({
     return {
       filename: `${prefix}-${Date.now()}${path.extname(file.originalname)}`,
       bucketName: "Uploads",
+      metadata: {
+        originalname: file.originalname,
+        mimetype: file.mimetype,
+        size: file.size || 'unknown' // Fallback for missing size
+      }
     };
   },
 });
@@ -32,13 +37,14 @@ const fileFilter = (req, file, cb) => {
     fieldname: file.fieldname,
     originalname: file.originalname,
     mimetype: file.mimetype,
-    size: file.size || 'unknown'
+    size: file.size || 'unknown',
+    encoding: file.encoding
   });
-  if (!file || !file.mimetype || !file.originalname) {
+  if (!file || !file.originalname || !file.mimetype) {
     console.error("Invalid file object in fileFilter:", file);
-    return cb(new Error("Invalid or missing file data"), false);
+    return cb(new Error("Invalid file data"), false);
   }
-  // Expanded allowed types (customize as needed)
+  // Allow any file type (customize allowedTypes if needed)
   const allowedTypes = [
     "image/jpeg",
     "image/png",
@@ -51,21 +57,20 @@ const fileFilter = (req, file, cb) => {
     "video/mpeg",
     "video/webm"
   ];
-  // To allow *any* file type, comment out the type check:
-  // if (allowedTypes.includes(file.mimetype)) {
-    console.log(`File accepted: ${file.originalname}, type: ${file.mimetype}, size: ${file.size || 'unknown'} bytes`);
-    cb(null, true);
-  // } else {
+  // Uncomment to restrict types
+  // if (!allowedTypes.includes(file.mimetype)) {
   //   const error = new Error("Only JPEG, PNG, MP4, WebP, AVIF, GIF, BMP, TIFF, MPEG, and WebM files are allowed!");
   //   console.error("File rejected:", file.originalname, error.message);
-  //   cb(error, false);
+  //   return cb(error, false);
   // }
+  console.log(`File accepted: ${file.originalname}, type: ${file.mimetype}, size: ${file.size || 'unknown'} bytes`);
+  cb(null, true);
 };
 
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024, files: 5 }, // 10MB, max 5 files
+  limits: { fileSize: 10 * 1024 * 1024, files: 5 } // 10MB, max 5 files
 }).array("photos");
 
 const handleMulterError = (err, req, res, next) => {
@@ -79,12 +84,12 @@ const handleMulterError = (err, req, res, next) => {
     }
     return res.status(400).json({ error: `Multer error: ${err.message}` });
   }
-  if (err.message.includes("Only")) {
+  if (err.message) {
     return res.status(400).json({ error: err.message });
   }
   return res.status(400).json({
     error: "File upload error",
-    details: err.message || "Unknown error",
+    details: err.message || "Unknown error"
   });
 };
 
