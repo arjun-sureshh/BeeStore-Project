@@ -1,50 +1,27 @@
 const mongoose = require("mongoose");
-const { GridFsStorage } = require("multer-gridfs-storage");
-const path = require("path");
 const multer = require("multer");
+const path = require("path");
 require("dotenv").config();
 
-const storage = new GridFsStorage({
-  url: process.env.MONGO_URI,
-  file: (req, file) => {
-    if (!file || !file.originalname || !file.mimetype) {
-      console.error("Invalid file object in storage:", file);
-      return null; // Skip invalid files
-    }
-    const prefix = file.mimetype.startsWith("image") ? "image" : "video";
-    return {
-      filename: `${prefix}-${Date.now()}${path.extname(file.originalname)}`,
-      bucketName: "Uploads",
-      metadata: {
-        originalname: file.originalname,
-        mimetype: file.mimetype,
-        size: file.size || 'unknown' // Fallback for missing size
-      }
-    };
-  },
-});
+if (!process.env.MONGO_URI) {
+  throw new Error("MONGO_URI is not defined in .env file");
+}
 
-storage.on("connection", () => {
-  console.log("GridFsStorage connected to MongoDB");
-});
-
-storage.on("connectionError", (error) => {
-  console.error("GridFsStorage connection error:", error);
-});
+// Use memory storage for Multer
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   console.log("fileFilter received file:", {
     fieldname: file.fieldname,
     originalname: file.originalname,
     mimetype: file.mimetype,
-    size: file.size || 'unknown',
-    encoding: file.encoding
+    encoding: file.encoding,
+    size: file.size || "unknown"
   });
   if (!file || !file.originalname || !file.mimetype) {
     console.error("Invalid file object in fileFilter:", file);
     return cb(new Error("Invalid file data"), false);
   }
-  // Allow any file type (customize allowedTypes if needed)
   const allowedTypes = [
     "image/jpeg",
     "image/png",
@@ -57,20 +34,18 @@ const fileFilter = (req, file, cb) => {
     "video/mpeg",
     "video/webm"
   ];
-  // Uncomment to restrict types
-  // if (!allowedTypes.includes(file.mimetype)) {
-  //   const error = new Error("Only JPEG, PNG, MP4, WebP, AVIF, GIF, BMP, TIFF, MPEG, and WebM files are allowed!");
-  //   console.error("File rejected:", file.originalname, error.message);
-  //   return cb(error, false);
-  // }
-  console.log(`File accepted: ${file.originalname}, type: ${file.mimetype}, size: ${file.size || 'unknown'} bytes`);
+  if (!allowedTypes.includes(file.mimetype)) {
+    console.error("File rejected:", file.originalname);
+    return cb(new Error("Only JPEG, PNG, MP4, WebP, AVIF, GIF, BMP, TIFF, MPEG, and WebM files are allowed!"), false);
+  }
+  console.log(`File accepted: ${file.originalname}, type: ${file.mimetype}, size: ${file.size || "unknown"} bytes`);
   cb(null, true);
 };
 
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024, files: 5 } // 10MB, max 5 files
+  limits: { fileSize: 10 * 1024 * 1024, files: 5 }
 }).array("photos");
 
 const handleMulterError = (err, req, res, next) => {
@@ -93,4 +68,56 @@ const handleMulterError = (err, req, res, next) => {
   });
 };
 
-module.exports = { upload, handleMulterError };
+// Manual GridFS upload function
+const uploadToGridFS = async (file, bucket) => {
+  console.log("Starting GridFS upload for file:", file.originalname);
+  const prefix = file.mimetype.startsWith("image") ? "image" : file.mimetype.startsWith("video") ? "video" : "file";
+  const filename = `${prefix}-${Date.now()}${path.extname(file.originalname)}`;
+  const writeStream = bucket.openUploadStream(filename, {
+    contentType: file.mimetype,
+    metadata: {
+      originalname: file.originalname,
+      mimetype: file.mimetype
+    }
+  });
+
+  return new Promise((resolve, reject) => {
+    writeStream.on("finish", () => {
+      console.log("GridFS writeStream finished for:", filename, "ID:", writeStream.id);
+      if (!writeStream.id) {
+        const error = new Error("GridFS writeStream ID is undefined");
+        console.error(error);
+        reject(error);
+        return;
+      }
+      resolve({ id: writeStream.id, filename, size: file.size });
+    });
+    writeStream.on("error", (error) => {
+      console.error("GridFS writeStream error for:", filename, error);
+      reject(error);
+    });
+    writeStream.write(file.buffer, (error) => {
+      if (error) {
+        console.error("Error writing buffer to GridFS:", filename, error);
+        reject(error);
+        return;
+      }
+      console.log("Buffer written, ending writeStream for:", filename);
+      writeStream.end();
+    });
+  });
+};
+
+// Get GridFS bucket
+const getGridFSBucket = () => {
+  if (mongoose.connection.readyState !== 1) {
+    console.error("MongoDB connection not established");
+    throw new Error("MongoDB connection not established");
+  }
+  console.log("Creating GridFSBucket for Uploads");
+  return new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: "Uploads"
+  });
+};
+
+module.exports = { upload, handleMulterError, uploadToGridFS, getGridFSBucket };

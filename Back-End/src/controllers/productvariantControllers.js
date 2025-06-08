@@ -409,10 +409,10 @@ const getproductforSingleView = async (req, res) => {
           as: "featuresDetails",
         },
       },
-      // New: Fetch feedback for the productId
+      // Fetch feedback for the productId
       {
         $lookup: {
-          from: "feedbacks", // Collection name (lowercase, plural as per MongoDB convention)
+          from: "feedbacks",
           localField: "productId",
           foreignField: "productId",
           as: "feedbackDetails",
@@ -431,7 +431,6 @@ const getproductforSingleView = async (req, res) => {
                 preserveNullAndEmptyArrays: true,
               },
             },
-
             {
               $project: {
                 rating: 1,
@@ -439,14 +438,14 @@ const getproductforSingleView = async (req, res) => {
                 description: 1,
                 media: 1,
                 userId: 1,
-                userName: "$userDetails.userName", // Assuming userName field exists
+                userName: "$userDetails.userName",
                 createdAt: 1,
               },
             },
           ],
         },
       },
-      // New: Compute average rating and total feedback count
+      // Compute average rating and total feedback count
       {
         $addFields: {
           averageRating: { $avg: "$feedbackDetails.rating" },
@@ -482,7 +481,19 @@ const getproductforSingleView = async (req, res) => {
           categoryName: "$categoryDetails.categoryName",
           productId: "$productDetails._id",
           stockQty: "$stockDetails.stockqty",
-          images: "$galleryDetails.photos",
+          images: {
+            $map: {
+              input: "$galleryDetails",
+              as: "gallery",
+              in: {
+                $cond: {
+                  if: { $ne: ["$$gallery.photos", null] },
+                  then: { $concat: ["/api/gallery/image/", { $toString: "$$gallery.photos" }] },
+                  else: null
+                }
+              }
+            }
+          },
           specifications: "$specificationDetails.specification",
           sizes: {
             $map: {
@@ -507,17 +518,15 @@ const getproductforSingleView = async (req, res) => {
           },
           averageRating: 1,
           totalFeedback: 1,
-          feedbackDetails: 1, // Include individual feedback
+          feedbackDetails: 1,
         },
       },
     ]);
 
     if (!productVariantDetails || productVariantDetails.length === 0) {
-      return res
-        .status(404)
-        .json({
-          message: "No product variants found for the given product ID.",
-        });
+      return res.status(404).json({
+        message: "No product variants found for the given product ID.",
+      });
     }
 
     res.status(200).json({
@@ -526,12 +535,10 @@ const getproductforSingleView = async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching product variants:", error);
-    res
-      .status(500)
-      .json({
-        message: "Error fetching product variants",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Error fetching product variants",
+      error: error.message,
+    });
   }
 };
 
@@ -635,13 +642,29 @@ const getOutOfStockBySellerID = async (req, res) => {
           localField: "_id",
           foreignField: "varientId",
           as: "galleryImages",
+          pipeline: [
+            { $sort: { createdAt: 1 } },
+            { $limit: 1 },
+            {
+              $project: {
+                photos: {
+                  $cond: {
+                    if: { $isArray: "$photos" },
+                    then: { $arrayElemAt: ["$photos", 0] },
+                    else: "$photos",
+                  },
+                },
+              },
+            },
+          ],
         },
       },
       {
-        $addFields: {
-          image: { $arrayElemAt: ["$galleryImages.photos", 0] },
+        $unwind: {
+          path: "$galleryImages",
+          preserveNullAndEmptyArrays: true,
         },
-      },
+      }, 
       {
         $project: {
           _id: 1,
@@ -655,7 +678,13 @@ const getOutOfStockBySellerID = async (req, res) => {
           brandName: "$brandDetails.brandName",
           categoryName: "$categoryDetails.categoryName",
           productId: "$productDetails._id",
-          image: 1,
+           image: {
+            $cond: {
+              if: { $ne: ["$galleryImages.photos", null] },
+              then: { $concat: ["/api/gallery/image/", { $toString: "$galleryImages.photos" }] },
+              else: "/default-image.jpg",
+            },
+          },
           stockqty: "$stockDetails.stockqty",
         },
       },
@@ -774,13 +803,29 @@ const getLowStockBySellerID = async (req, res) => {
           localField: "_id",
           foreignField: "varientId",
           as: "galleryImages",
+           pipeline: [
+            { $sort: { createdAt: 1 } },
+            { $limit: 1 },
+            {
+              $project: {
+                photos: {
+                  $cond: {
+                    if: { $isArray: "$photos" },
+                    then: { $arrayElemAt: ["$photos", 0] },
+                    else: "$photos",
+                  },
+                },
+              },
+            },
+          ],
         },
       },
-      {
-        $addFields: {
-          image: { $arrayElemAt: ["$galleryImages.photos", 0] },
+     {
+        $unwind: {
+          path: "$galleryImages",
+          preserveNullAndEmptyArrays: true,
         },
-      },
+      }, 
       {
         $project: {
           _id: 1,
@@ -794,7 +839,13 @@ const getLowStockBySellerID = async (req, res) => {
           brandName: "$brandDetails.brandName",
           categoryName: "$categoryDetails.categoryName",
           productId: "$productDetails._id",
-          image: 1,
+          image: {
+            $cond: {
+              if: { $ne: ["$galleryImages.photos", null] },
+              then: { $concat: ["/api/gallery/image/", { $toString: "$galleryImages.photos" }] },
+              else: "/default-image.jpg",
+            },
+          },
           stockqty: "$stockDetails.stockqty",
         },
       },
@@ -817,6 +868,8 @@ const getLowStockBySellerID = async (req, res) => {
 
 const getVaraintBySellerIDForInventory = async (req, res) => {
   const { sellerId } = req.params;
+
+  console.log("Fetching variants for sellerId:", sellerId); // Debug
 
   try {
     // Ensure sellerId is a valid ObjectId
@@ -895,11 +948,27 @@ const getVaraintBySellerIDForInventory = async (req, res) => {
           localField: "_id",
           foreignField: "varientId",
           as: "galleryImages",
+          pipeline: [
+            { $sort: { createdAt: 1 } },
+            { $limit: 1 },
+            {
+              $project: {
+                photos: {
+                  $cond: {
+                    if: { $isArray: "$photos" },
+                    then: { $arrayElemAt: ["$photos", 0] },
+                    else: "$photos",
+                  },
+                },
+              },
+            },
+          ],
         },
       },
       {
-        $addFields: {
-          image: { $arrayElemAt: ["$galleryImages.photos", 0] }, // Get the first image
+        $unwind: {
+          path: "$galleryImages",
+          preserveNullAndEmptyArrays: true,
         },
       },
       {
@@ -929,11 +998,18 @@ const getVaraintBySellerIDForInventory = async (req, res) => {
           brandName: "$brandDetails.brandName",
           categoryName: "$categoryDetails.categoryName",
           productId: "$productDetails._id",
-          image: 1,
+          image: {
+            $cond: {
+              if: { $ne: ["$galleryImages.photos", null] },
+              then: { $concat: ["/api/gallery/image/", { $toString: "$galleryImages.photos" }] },
+              else: "/default-image.jpg",
+            },
+          },
           stockqty: "$stockDetails.stockqty",
         },
       },
     ]);
+
 
     if (!productVaraintDetails || productVaraintDetails.length === 0) {
       return res
@@ -946,8 +1022,8 @@ const getVaraintBySellerIDForInventory = async (req, res) => {
       data: productVaraintDetails,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching product", error });
+    console.error("Error fetching product variants:", error);
+    res.status(500).json({ message: "Error fetching product", error: error.message });
   }
 };
 

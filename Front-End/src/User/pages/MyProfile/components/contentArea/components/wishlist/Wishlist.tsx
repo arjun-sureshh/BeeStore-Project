@@ -21,10 +21,11 @@ interface WishlistItem {
 const Wishlist: React.FC = () => {
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState<string | null>(null); // Track deleting item
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [existingUserData, setExistingUserData] =
     useState<existingUserData | null>(null);
   const navigate = useNavigate();
+
   // Fetch user details
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -73,8 +74,10 @@ const Wishlist: React.FC = () => {
         const response = await axios.get("http://localhost:5000/api/wishlist", {
           params: { userId: existingUserData._id },
         });
-        console.log("Wishlist fetch response:", response.data);
-        setWishlistItems(response.data);
+        console.log("Wishlist fetch response:", JSON.stringify(response.data, null, 2)); // Debug
+        // Extract data array from response
+        const data = Array.isArray(response.data.data) ? response.data.data : [];
+        setWishlistItems(data);
       } catch (error: any) {
         console.error("Error fetching wishlist:", {
           message: error.message,
@@ -104,7 +107,7 @@ const Wishlist: React.FC = () => {
     setIsDeleting(productvaraintId);
     try {
       const payload = {
-        varientId: productvaraintId, // Matches backend
+        varientId: productvaraintId,
         userId: existingUserData._id,
       };
       console.log("Wishlist delete payload:", payload);
@@ -116,7 +119,6 @@ const Wishlist: React.FC = () => {
       console.log("Wishlist delete response:", response.data);
 
       if (response.data.success) {
-        // Optimistically update state
         setWishlistItems((prev) =>
           prev.filter((item) => item.varientId !== productvaraintId),
         );
@@ -130,8 +132,6 @@ const Wishlist: React.FC = () => {
         response: error.response?.data,
         status: error.response?.status,
       });
-      // Optionally refetch wishlist on error to ensure consistency
-      // await fetchWishlist();
     } finally {
       setIsDeleting(null);
     }
@@ -190,27 +190,29 @@ const Wishlist: React.FC = () => {
         ) : wishlistItems.length === 0 ? (
           <div>No items in wishlist</div>
         ) : (
-          wishlistItems.map((item, index) => (
-            <WishlistProducts
-              key={`${item.varientId}-${index}`}
-              img={
-                item.image
-                  ? `http://localhost:5000${item.image}`
-                  : "/default-image.jpg"
-              }
-              productName={item.productName || "Unknown Product"}
-              productRating={item.productRating || "0"}
-              totalOrders={item.totalOrders || "0"}
-              sellingPrice={item.sellingPrice || "0"}
-              MRP={item.MRP || "0"}
-              offerPer={item.offerPer || "0"}
-              productvaraintId={item.varientId}
-              minimumQty={item.minimumQty}
-              productstock={item.productstock}
-              deleteFromWishlist={deleteFromWishlist}
-              handleAddToCart={handleAddToCart}
-            />
-          ))
+          wishlistItems.map((item, index) => {
+            const imageUrl = item.image
+              ? `http://localhost:5000${item.image}`
+              : "/default-image.jpg";
+            console.log("Rendering item:", item.varientId, "Image URL:", imageUrl); // Debug
+            return (
+              <WishlistProducts
+                key={`${item.varientId}-${index}`}
+                img={imageUrl}
+                productName={item.productName || "Unknown Product"}
+                productRating={item.productRating || "0"}
+                totalOrders={item.totalOrders || "0"}
+                sellingPrice={item.sellingPrice || "0"}
+                MRP={item.MRP || "0"}
+                offerPer={item.offerPer || "0"}
+                productvaraintId={item.varientId}
+                minimumQty={item.minimumQty}
+                productstock={item.productstock}
+                deleteFromWishlist={deleteFromWishlist}
+                handleAddToCart={handleAddToCart}
+              />
+            );
+          })
         )}
       </div>
     </div>

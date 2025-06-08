@@ -22,15 +22,9 @@ router.get("/", getProductVariant);
 router.post("/fetchVariantByProductId", getVariantToQC);
 router.get("/fetchallproducts/:sellerId", getVaraintBySellerID);
 
-router.get(
-  "/fetchallproducts-for-out-of-stock/:sellerId",
-  getOutOfStockBySellerID,
-);
+router.get("/fetchallproducts-for-out-of-stock/:sellerId",getOutOfStockBySellerID,);
 router.get("/fetchallproducts-for-low-stock/:sellerId", getLowStockBySellerID);
-router.get(
-  "/fetchallproducts-for-Inventory/:sellerId",
-  getVaraintBySellerIDForInventory,
-);
+router.get( "/fetchallproducts-for-Inventory/:sellerId",getVaraintBySellerIDForInventory,);
 
 router.get("/fetchProductVaraintData/:productVaraintId", getVaraintByID);
 router.get("/fetchVaraintByProductId/:productId", getVaraintByProductID);

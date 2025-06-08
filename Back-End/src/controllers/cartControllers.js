@@ -11,6 +11,8 @@ const ProductStock = require("../models/productStockModels");
 const getCart = async (req, res) => {
   const { userId } = req.params;
 
+  console.log("Fetching cart for userId:", userId); // Debug
+
   try {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({
@@ -79,7 +81,21 @@ const getCart = async (req, res) => {
           localField: "productVariantDetails._id",
           foreignField: "varientId",
           as: "galleryDetails",
-          pipeline: [{ $sort: { createdAt: 1 } }, { $limit: 1 }],
+          pipeline: [
+            { $sort: { createdAt: 1 } },
+            { $limit: 1 },
+            {
+              $project: {
+                photos: {
+                  $cond: {
+                    if: { $isArray: "$photos" },
+                    then: { $arrayElemAt: ["$photos", 0] },
+                    else: "$photos",
+                  },
+                },
+              },
+            },
+          ],
         },
       },
       {
@@ -93,7 +109,6 @@ const getCart = async (req, res) => {
           as: "productSpecificationDetails",
         },
       },
-      // New: Lookup product stock
       {
         $lookup: {
           from: "productstocks",
@@ -112,13 +127,21 @@ const getCart = async (req, res) => {
           mrp: { $first: "$productVariantDetails.mrp" },
           sellingPrice: { $first: "$productVariantDetails.sellingPrice" },
           sellerName: { $first: "$sellerDetails.sellerDisplayName" },
-          image: { $first: "$galleryDetails.photos" },
+          image: {
+            $first: {
+              $cond: {
+                if: { $ne: ["$galleryDetails.photos", null] },
+                then: { $concat: ["/api/gallery/image/", { $toString: "$galleryDetails.photos" }] },
+                else: "/default-image.jpg",
+              },
+            },
+          },
           specifications: { $first: "$productSpecificationDetails" },
           bookingAmount: { $first: "$bookingDetails.amount" },
           productTitle: { $first: "$productVariantDetails.productTitle" },
           productId: { $first: "$productDetails._id" },
           minimumorder: { $first: "$productVariantDetails.minimumOrderQty" },
-          stockQty: { $first: "$stockDetails.stockqty" }, // New field
+          stockQty: { $first: "$stockDetails.stockqty" },
           createdAt: { $first: "$createdAt" },
           updatedAt: { $first: "$updatedAt" },
         },
@@ -137,8 +160,8 @@ const getCart = async (req, res) => {
           bookingAmount: 1,
           productTitle: 1,
           productId: 1,
-          minimumorder: 1,
-          stockQty: 1, // Include in response
+          minimumOrder: 1,
+          stockQty: 1,
           createdAt: 1,
           updatedAt: 1,
           _id: 0,
@@ -146,7 +169,9 @@ const getCart = async (req, res) => {
       },
     ]);
 
-    if (!cartDetails || cartDetails.length === 0) {
+    console.log("Cart items fetched:", cartDetails.length, "Items:", JSON.stringify(cartDetails, null, 2)); // Debug
+
+    if (!cartDetails.length === 0 || cartDetails.length === 0) {
       return res.status(404).json({
         success: false,
         message: "No cart items found for this user",
@@ -155,18 +180,19 @@ const getCart = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Cart details fetched successfully",
+      message: "Cart details retrieved successfully",
       data: cartDetails,
     });
   } catch (error) {
     console.error("Error in getCart:", error);
     return res.status(500).json({
       success: false,
-      message: "Error fetching cart details",
+      message: "An error occurred while fetching cart details",
       error: error.message,
     });
   }
 };
+
 // post Cart
 
 const createCart = async (req, res) => {

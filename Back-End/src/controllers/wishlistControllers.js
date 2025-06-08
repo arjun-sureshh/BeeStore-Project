@@ -6,10 +6,12 @@ const ProductVariant = require("../models/productVariantModels");
 const getWishlist = async (req, res) => {
   const { userId } = req.query;
 
-  if (!userId) {
+  console.log("Fetching wishlist for userId:", userId); // Debug
+
+  if (!userId || !mongoose.isValidObjectId(userId)) {
     return res.status(400).json({
       success: false,
-      message: "userId is required",
+      message: "Valid userId is required",
     });
   }
 
@@ -28,31 +30,39 @@ const getWishlist = async (req, res) => {
       {
         $unwind: { path: "$variantDetails", preserveNullAndEmptyArrays: true },
       },
-      // Join with Gallery for images
+      // Join with Gallery for one image
       {
         $lookup: {
           from: "productimages",
           localField: "varientId",
           foreignField: "varientId",
           as: "galleryImages",
+         pipeline: [
+            { $sort: { createdAt: 1 } },
+            { $limit: 1 },
+            // Include productVariantId in the image projection
+            { $project: { photos: 1, varientId: 1 } },
+          ],
         },
+      },
+      {
+        $unwind: { path: "$galleryImages", preserveNullAndEmptyArrays: true },
       },
       // Join with Feedback to get ratings
       {
         $lookup: {
-          from: "feedbacks", // Matches Feedback collection
+          from: "feedbacks",
           localField: "variantDetails.productId",
-          foreignField: "productId", // Assuming productId in Feedback references varientId
+          foreignField: "productId",
           as: "feedback",
         },
       },
-      // product stock
-
+      // Join with ProductStock
       {
         $lookup: {
-          from: "productstocks", // Matches Feedback collection
+          from: "productstocks",
           localField: "varientId",
-          foreignField: "productvariantId", // Assuming productId in Feedback references varientId
+          foreignField: "productvariantId",
           as: "productstockDetails",
         },
       },
@@ -62,7 +72,6 @@ const getWishlist = async (req, res) => {
           preserveNullAndEmptyArrays: true,
         },
       },
-
       // Project the required fields
       {
         $project: {
@@ -71,10 +80,11 @@ const getWishlist = async (req, res) => {
             $ifNull: ["$variantDetails.productTitle", "Unknown Product"],
           },
           image: {
-            $ifNull: [
-              { $arrayElemAt: ["$galleryImages.photos", 0] },
-              "/default-image.jpg",
-            ],
+            $cond: {
+              if: { $ne: ["$galleryImages.photos", null] },
+              then: { $concat: ["/api/gallery/image/", { $toString: "$galleryImages.photos" }] },
+              else: "/default-image.jpg",
+            },
           },
           minimumQty: "$variantDetails.minimumOrderQty",
           productstock: "$productstockDetails.stockqty",
@@ -115,8 +125,8 @@ const getWishlist = async (req, res) => {
               {
                 $toString: {
                   $round: [
-                    { $avg: "$feedback.rating" }, // Calculate average rating
-                    1, // Round to 1 decimal place
+                    { $avg: "$feedback.rating" },
+                    1,
                   ],
                 },
               },
@@ -124,19 +134,32 @@ const getWishlist = async (req, res) => {
             ],
           },
           totalOrders: {
-            $ifNull: [{ $toString: { $size: "$feedback" } }, "0"], // Count total feedback entries
+            $ifNull: [{ $toString: { $size: "$feedback" } }, "0"],
           },
         },
       },
     ]);
 
-    res.status(200).json(wishlistItems);
+
+    if (!wishlistItems || wishlistItems.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No wishlist items found for this user",
+        data: [],
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Wishlist fetched successfully",
+      data: wishlistItems,
+    });
   } catch (error) {
     console.error("Error fetching wishlist:", error);
     res.status(500).json({
       success: false,
       message: "Error fetching wishlist",
-      error,
+      error: error.message,
     });
   }
 };

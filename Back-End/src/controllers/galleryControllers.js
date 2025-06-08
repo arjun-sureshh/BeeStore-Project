@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const Gallery = require("../models/galleryModels");
+const { uploadToGridFS, getGridFSBucket } = require("../config/multerConfig");
 
 // Gallery Get
 const getGallery = async (req, res) => {
@@ -56,73 +57,86 @@ const getImagesByProductVaraintId = async (req, res) => {
 
 const createGallery = async (req, res) => {
   try {
-    const { productVariantId } = req.body;
-
-    if (!productVariantId) {
-      console.error("Missing productVariantId");
-      return res.status(400).json({ error: "Product Variant ID is required" });
-    }
-
-    if (!mongoose.Types.ObjectId.isValid(productVariantId)) {
-      console.error(`Invalid ObjectId: ${productVariantId}`);
-      return res.status(400).json({ error: "Invalid Product Variant ID" });
-    }
+    console.log("createGallery called with:", {
+      files: req.files?.map(f => ({
+        originalname: f.originalname,
+        mimetype: f.mimetype,
+        size: f.size
+      })),
+      body: req.body
+    });
 
     if (!req.files || req.files.length === 0) {
-      console.error("No files in req.files");
-      return res.status(400).json({ error: "No valid images uploaded" });
+      console.log("No files uploaded");
+      return res.status(400).json({ error: "No files uploaded" });
     }
 
-    console.log("Raw req.files:", req.files); // Debug raw files
-    console.log("Processing files:", req.files.map(f => ({
-      filename: f.filename || 'undefined',
-      mime: f.mimetype || 'undefined',
-      size: f.size || 'undefined',
-      id: f.id || 'undefined'
-    })));
+    const { productVariantId } = req.body;
+    if (!productVariantId || !mongoose.isValidObjectId(productVariantId)) {
+      console.log("Invalid or missing productVariantId:", productVariantId);
+      return res.status(400).json({ error: "Valid Product Variant ID is required" });
+    }
 
-    const uploadedImages = [];
+    const bucket = getGridFSBucket();
+    const uploadedFiles = [];
+
+    console.log("Raw req.files:", req.files);
 
     for (const file of req.files) {
-      if (!file || !file.id || !file.filename) {
-        console.error("Invalid file:", file);
-        continue;
-      }
-
       try {
-        const newImage = new Gallery({
-          varientId: new mongoose.Types.ObjectId(productVariantId),
-          photos: file.id,
-          filename: file.filename,
+        const result = await uploadToGridFS(file, bucket);
+        console.log("GridFS upload result:", result);
+        if (!result.id || !result.filename) {
+          console.error("Invalid GridFS result for file:", file.originalname, result);
+          continue; // Skip invalid files
+        }
+        uploadedFiles.push({
+          originalname: file.originalname,
+          mimetype: file.mimetype,
+          size: file.size,
+          gridfsId: result.id,
+          filename: result.filename
         });
-
-        await newImage.save();
-        console.log(`Saved Gallery document: ${newImage._id}`);
-        uploadedImages.push({
-          _id: newImage._id,
-          filename: newImage.filename,
-          fileId: newImage.photos,
-          url: `${req.protocol}://${req.get("host")}/api/storage/file/${newImage.photos}`,
-        });
-      } catch (saveError) {
-        console.error(`Error saving Gallery document for ${file.filename}:`, saveError);
-        continue;
+      } catch (error) {
+        console.error("Error uploading file to GridFS:", file.originalname, error);
+        continue; // Skip failed files
       }
     }
 
-    if (uploadedImages.length === 0) {
-      console.error("No Gallery documents saved");
-      return res.status(400).json({ error: "No valid images were saved" });
+    console.log("Processing files:", uploadedFiles);
+
+    if (uploadedFiles.length === 0) {
+      console.log("No valid files uploaded");
+      return res.status(400).json({ error: "No valid files uploaded" });
     }
 
-    console.log("Upload completed:", uploadedImages);
-    res.status(201).json({
-      message: "Images uploaded successfully",
-      images: uploadedImages,
+    // Save one document per file to productimage collection
+    const savedDocuments = [];
+    for (const file of uploadedFiles) {
+      const gallery = new Gallery({
+        photos: file.gridfsId,
+        filename: file.filename,
+        varientId: productVariantId
+      });
+      await gallery.save();
+      savedDocuments.push(gallery);
+    }
+
+    console.log("Gallery documents saved:", savedDocuments);
+
+    res.json({
+      message: "Files uploaded successfully",
+      files: uploadedFiles.map(file => ({
+        originalname: file.originalname,
+        mimetype: file.mimetype,
+        size: file.size,
+        gridfsId: file.gridfsId,
+        filename: file.filename
+      }))
     });
   } catch (error) {
     console.error("Error in createGallery:", error);
-    res.status(500).json({ error: "Internal Server Error", details: error.message });
+    res.status(500).json({ error: "Failed to create gallery", details: error.message });
   }
 };
 

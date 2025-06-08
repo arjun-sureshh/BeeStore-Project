@@ -101,9 +101,9 @@ const HomePage: React.FC = () => {
     return <div className={styles.loading}>Loading...</div>;
   }
 
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
-  }
+  // if (error) {
+  //   return <div className={styles.error}>{error}</div>;
+  // }
 
   const categories = [
     {

@@ -9,12 +9,12 @@ interface SingleProductProps {
 }
 
 const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
-  const baseURL = import.meta.env.VITE_API_URL;
+  const baseURL = 'http://localhost:5000';
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    sessionStorage.setItem("clickedproductId", product.productId); // Use productId
-    navigate("/User/ProductView");  
+    sessionStorage.setItem("clickedproductId", product.productId);
+    navigate("/User/ProductView");
   };
 
   return (
@@ -23,12 +23,16 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
         <img
           src={product.image ? `${baseURL}${product.image}` : defaultImg}
           alt={product.productTitle}
+          onError={(e) => {
+            e.currentTarget.src = defaultImg;
+            console.error("Image load error:", product.image);
+          }}
         />
       </div>
       <div className={styles.nameSec}>
         <div className={styles.productName}>{product.productTitle}</div>
         <div className={styles.price}>
-        ₹{product.sellingPrice != null ? product.sellingPrice.toLocaleString() : "N/A"}
+          ₹{product.sellingPrice != null ? product.sellingPrice.toLocaleString() : "N/A"}
         </div>
       </div>
     </div>

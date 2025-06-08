@@ -191,10 +191,7 @@ const searchProductSuggestions = async (req, res) => {
 const getProductsGroupedByTopCategory = async (req, res) => {
   try {
     const productDetails = await Product.aggregate([
-      // Step 1: Match approved products
       { $match: { qcStatus: 1 } },
-
-      // Step 2: Lookup category details
       {
         $lookup: {
           from: "categories",
@@ -206,8 +203,6 @@ const getProductsGroupedByTopCategory = async (req, res) => {
       {
         $unwind: { path: "$categoryDetails", preserveNullAndEmptyArrays: true },
       },
-
-      // Step 3: Graph lookup for full category hierarchy
       {
         $graphLookup: {
           from: "categories",
@@ -218,8 +213,6 @@ const getProductsGroupedByTopCategory = async (req, res) => {
           depthField: "depth",
         },
       },
-
-      // Step 4: Add top parent category
       {
         $addFields: {
           topParentCategory: {
@@ -241,8 +234,6 @@ const getProductsGroupedByTopCategory = async (req, res) => {
           },
         },
       },
-
-      // Step 5: Lookup one product variant
       {
         $lookup: {
           from: "productvariantdetails",
@@ -258,20 +249,16 @@ const getProductsGroupedByTopCategory = async (req, res) => {
           preserveNullAndEmptyArrays: true,
         },
       },
-
-      // Step 6: Lookup one image per product variant
       {
         $lookup: {
           from: "productimages",
           localField: "productVariantDetails._id",
           foreignField: "varientId",
           as: "galleryImages",
-          pipeline: [{ $limit: 1 }], // Limit to one image
+          pipeline: [{ $limit: 1 }],
         },
       },
       { $unwind: { path: "$galleryImages", preserveNullAndEmptyArrays: true } },
-
-      // Step 7: Lookup brand and seller
       {
         $lookup: {
           from: "brands",
@@ -290,8 +277,6 @@ const getProductsGroupedByTopCategory = async (req, res) => {
         },
       },
       { $unwind: { path: "$sellerDetails", preserveNullAndEmptyArrays: true } },
-
-      // Step 8: Project essential fields
       {
         $project: {
           productId: "$_id",
@@ -300,13 +285,17 @@ const getProductsGroupedByTopCategory = async (req, res) => {
           productTitle: "$productVariantDetails.productTitle",
           sellingPrice: "$productVariantDetails.sellingPrice",
           mrp: "$productVariantDetails.mrp",
-          image: "$galleryImages.photos",
+          image: {
+            $cond: {
+              if: { $ne: ["$galleryImages.photos", null] },
+              then: { $concat: ["/api/gallery/image/", { $toString: "$galleryImages.photos" }] },
+              else: null
+            }
+          },
           brandName: "$brandDetails.brandName",
           sellerName: "$sellerDetails.sellerName",
         },
       },
-
-      // Step 9: Group by top parent category
       {
         $group: {
           _id: {
@@ -328,8 +317,6 @@ const getProductsGroupedByTopCategory = async (req, res) => {
           productCount: { $sum: 1 },
         },
       },
-
-      // Step 10: Final projection
       {
         $project: {
           _id: 0,
@@ -339,8 +326,6 @@ const getProductsGroupedByTopCategory = async (req, res) => {
           products: 1,
         },
       },
-
-      // Step 11: Sort
       { $sort: { categoryName: 1 } },
     ]);
 
@@ -522,7 +507,13 @@ const getProductBasedOnTopCategory = async (req, res) => {
           productTitle: "$productVariantDetails.productTitle",
           sellingPrice: "$productVariantDetails.sellingPrice",
           mrp: "$productVariantDetails.mrp",
-          image: "$galleryImages.photos",
+          image: {
+            $cond: {
+              if: { $ne: ["$galleryImages.photos", null] },
+              then: { $concat: ["/api/gallery/image/", { $toString: "$galleryImages.photos" }] },
+              else: null
+            }
+          },
           brandName: "$brandDetails.brandName",
           sellerName: "$sellerDetails.sellerName",
           color: "$colorDetails.color",
@@ -855,7 +846,13 @@ const getProductsBySearchKeyword = async (req, res) => {
           productTitle: "$productVariantDetails.productTitle",
           sellingPrice: "$productVariantDetails.sellingPrice",
           mrp: "$productVariantDetails.mrp",
-          image: "$galleryImages.photos",
+          image: {
+            $cond: {
+              if: { $ne: ["$galleryImages.photos", null] },
+              then: { $concat: ["/api/gallery/image/", { $toString: "$galleryImages.photos" }] },
+              else: null
+            }
+          },
           brandName: "$brandDetails.brandName",
           sellerName: "$sellerDetails.sellerName",
           color: "$colorDetails.color",

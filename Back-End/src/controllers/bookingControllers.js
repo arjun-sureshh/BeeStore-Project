@@ -176,10 +176,10 @@ const confirmOrder = async (req, res) => {
 const orderDetails = async (req, res) => {
   const { userId } = req.body;
 
-  // console.log("Registered Mongoose models:", mongoose.modelNames());
+  console.log("Fetching order details for userId:", userId); // Debug
 
-  if (!userId) {
-    return res.status(400).json({ message: "User ID is required" });
+  if (!userId || !mongoose.isValidObjectId(userId)) {
+    return res.status(400).json({ message: "Valid User ID is required" });
   }
 
   try {
@@ -215,11 +215,16 @@ const orderDetails = async (req, res) => {
       .filter((id) => id);
     const images = await Gallery.find({ varientId: { $in: variantIds } })
       .select("varientId photos")
-      .limit(variantIds.length)
       .lean();
 
     const imageMap = images.reduce((map, image) => {
-      map[image.varientId.toString()] = image.photos;
+      // Handle photos as array or scalar
+      const photoId = Array.isArray(image.photos)
+        ? image.photos[0]
+        : image.photos;
+      map[image.varientId.toString()] = photoId
+        ? `/api/gallery/image/${photoId}`
+        : null;
       return map;
     }, {});
 
@@ -240,11 +245,13 @@ const orderDetails = async (req, res) => {
           quantity: cart.cartQty,
           cartStatus: cart.cartStatus,
           productId: cart.productvariantId?.productId,
-          image: imageMap[cart.productvariantId?._id?.toString()] || null,
+          image: imageMap[cart.productvariantId?._id?.toString()] || "/default-image.jpg",
           _id: cart._id,
         })),
       };
     });
+
+    console.log("Order details fetched:", orderDetails.length, "Items:", JSON.stringify(orderDetails, null, 2)); // Debug
 
     return res.status(200).json({
       message: "Order details fetched successfully",
@@ -252,7 +259,7 @@ const orderDetails = async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching order details:", error);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -322,30 +329,40 @@ const cancel_cart_item = async (req, res) => {
 
 // for order manqgement
 const getOrderDetails = async (req, res) => {
-  const { page = 1, limit = 10 } = req.query; // Pagination parameters
+  const { page = 1, limit = 10 } = req.query;
+
+  console.log("Fetching orders: page:", page, "limit:", limit); // Debug
 
   try {
-    // Fetch all bookings with status 1 (confirmed)
+    // Validate pagination
+    const pageNum = Number(page);
+    const limitNum = Number(limit);
+    if (pageNum < 1 || limitNum < 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid page or limit",
+      });
+    }
+
     const bookings = await Booking.find({ status: { $gte: 1 } })
-      .populate("userId", "userName userEmail") // Populate user details
+      .populate("userId", "userName userEmail")
       .populate(
         "addressId",
         "mobileNumber fullName address city pincode addressType",
-      ) // Populate address
-      .skip((page - 1) * limit)
-      .limit(Number(limit))
+      )
+      .skip((pageNum - 1) * limitNum)
+      .limit(limitNum)
       .lean();
 
     if (!bookings || bookings.length === 0) {
+      console.log("No bookings found with status >= 1"); // Debug
       return res
         .status(404)
         .json({ success: false, message: "No confirmed orders found" });
     }
 
-    // Process each booking to include cart, variant, and image details
     const orderDetails = await Promise.all(
       bookings.map(async (booking) => {
-        // Fetch cart items for the booking with cartStatus 1 (assuming 1 is confirmed)
         const carts = await MYcart.find({
           bookingID: booking._id,
           cartStatus: { $ne: -1 },
@@ -355,42 +372,54 @@ const getOrderDetails = async (req, res) => {
             select:
               "productTitle sellingPrice mrp colorId productDiscription productId",
             populate: [
-              {
-                path: "colorId",
-                select: "color",
-                model: Color, // Use the imported Color model
-              },
+              { path: "colorId", select: "color", model: Color },
               {
                 path: "productId",
                 select: "sellerId",
-                model: Product, // Use the imported Color model
+                model: Product,
                 populate: {
                   path: "sellerId",
                   select: "sellerName",
-                  model: Seller, // Use the imported Color model
+                  model: Seller,
                 },
               },
             ],
           })
           .lean();
 
-        // Fetch one image per variant from Gallery
+        console.log(`Booking ${booking._id} has ${carts.length} cart items`); // Debug
+
         const enrichedCarts = await Promise.all(
           carts.map(async (cart) => {
             const variant = cart.productvariantId;
+            if (!variant?._id) {
+              console.log(`No variant for cart ${cart._id}`); // Debug
+              return {
+                ...cart,
+                variantDetails: variant || {},
+                image: "/default-image.jpg",
+              };
+            }
+
             const galleryImage = await Gallery.findOne(
               { varientId: variant._id },
               "photos",
             )
-              .sort({ createdAt: -1 }) // Get the latest image
+              .sort({ createdAt: -1 })
               .lean();
+
+            const photoId = Array.isArray(galleryImage?.photos)
+              ? galleryImage.photos[0]
+              : galleryImage?.photos;
+
+            console.log(`Cart ${cart._id} image:`, photoId); // Debug
 
             return {
               ...cart,
               variantDetails: variant,
-              image: galleryImage
-                ? `${process.env.IMAGE_BASE_URL}/${galleryImage.photos}`
-                : null,
+              image: photoId
+                ? `/api/gallery/image/${photoId}`
+                : "/default-image.jpg",
             };
           }),
         );
@@ -402,29 +431,28 @@ const getOrderDetails = async (req, res) => {
       }),
     );
 
-    // Total count for pagination
-    const total = await Booking.countDocuments({ status: 1 });
-    const totalPages = Math.ceil(total / limit);
+    const total = await Booking.countDocuments({ status: { $gte: 1 } });
+    const totalPages = Math.ceil(total / limitNum);
+
+    console.log("Orders fetched:", orderDetails.length); // Debug
 
     res.status(200).json({
       success: true,
       data: orderDetails,
       pagination: {
-        currentPage: Number(page),
+        currentPage: pageNum,
         totalPages,
         totalItems: total,
-        itemsPerPage: Number(limit),
+        itemsPerPage: limitNum,
       },
     });
   } catch (error) {
     console.error("Error fetching order details:", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        error: "Internal server error",
-        details: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      error: "Internal server error",
+      details: error.message,
+    });
   }
 };
 // serach api
@@ -764,12 +792,14 @@ const getTotalIncome = async (req, res) => {
 };
 
 // Fetch top 5 ordered products with seller names and images
+
 const getTopOrderedProducts = async (req, res) => {
   try {
-    // Aggregate cart items to get order counts by product variant
+    console.log("Fetching top ordered products"); // Debug
+
     const cartAggregation = await MYcart.aggregate([
       {
-        $match: { cartStatus: { $in: [1, 2, 3, 4] } }, // Assuming cartStatus 1-4 are ordered statuses
+        $match: { cartStatus: { $in: [1, 2, 3, 4] } },
       },
       {
         $group: {
@@ -785,48 +815,69 @@ const getTopOrderedProducts = async (req, res) => {
       },
     ]);
 
+    console.log("Cart aggregation result:", cartAggregation); // Debug
+
     if (!cartAggregation || cartAggregation.length === 0) {
-      return res.status(404).json({ message: "No ordered products found" });
+      return res.status(404).json({
+        success: false,
+        message: "No ordered products found",
+      });
     }
 
-    // Fetch product details
     const productDetails = await Promise.all(
       cartAggregation.map(async (item) => {
         const variant = await ProductVariant.findById(item._id)
           .select("productId productTitle")
           .lean();
-        if (!variant) return null;
+        if (!variant) {
+          console.log(`No variant found for ID ${item._id}`); // Debug
+          return null;
+        }
 
         const product = await Product.findById(variant.productId)
           .select("sellerId")
           .lean();
-        if (!product) return null;
+        if (!product) {
+          console.log(`No product found for ID ${variant.productId}`); // Debug
+          return null;
+        }
 
         const seller = await Seller.findById(product.sellerId)
           .select("sellerName")
           .lean();
-        if (!seller) return null;
+        if (!seller) {
+          console.log(`No seller found for ID ${product.sellerId}`); // Debug
+          return null;
+        }
 
         const image = await Gallery.findOne({ varientId: item._id })
           .select("photos")
           .lean();
-        // const imageUrl = image ? `/Uploads/${image.photos}` : null;
+        const photoId = Array.isArray(image?.photos)
+          ? image.photos[0]
+          : image?.photos;
+
+        console.log(`Variant ${item._id} image:`, photoId); // Debug
 
         return {
           productTitle: variant.productTitle || "Unknown Product",
           sellerName: seller.sellerName || "Unknown Seller",
           orderCount: item.orderCount,
-          image: image.photos,
+          image: photoId ? `/api/gallery/image/${photoId}` : "/default-image.jpg",
         };
       }),
     );
 
-    // Filter out null results
     const filteredDetails = productDetails.filter((detail) => detail !== null);
 
     if (filteredDetails.length === 0) {
-      return res.status(404).json({ message: "No product details found" });
+      return res.status(404).json({
+        success: false,
+        message: "No product details found",
+      });
     }
+
+    console.log("Top products fetched:", filteredDetails.length); // Debug
 
     res.status(200).json({
       success: true,
@@ -835,7 +886,11 @@ const getTopOrderedProducts = async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching top ordered products:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
   }
 };
 

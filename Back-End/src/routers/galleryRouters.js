@@ -5,60 +5,48 @@ const {
   getGallery,
   getImagesByProductVaraintId,
 } = require("../controllers/galleryControllers");
-const { upload, handleMulterError } = require("../config/multerConfig");
+const { upload, handleMulterError, getGridFSBucket } = require("../config/multerConfig");
 
 const router = express.Router();
 
-const validateFormData = (req, res, next) => {
-  if (!req.body.productVariantId) {
-    console.error("Missing productVariantId in request body");
-    return res.status(400).json({ error: "Product Variant ID is required" });
-  }
-  console.log("FormData validated, body:", req.body);
-  next();
-};
+// POST /api/gallery
+router.post("/", upload, createGallery);
 
-// POST /api/storage
-router.post("/", upload, handleMulterError, createGallery);
-
-// GET /api/storage
+// GET /api/gallery
 router.get("/", getGallery);
 
 // GET /api/storage/fetchImagesBYProductVaraintId/:productVariantId
 router.get("/fetchImagesBYProductVaraintId/:productVariantId", getImagesByProductVaraintId);
 
-// GET /api/storage/file/:fileId
-router.get("/file/:fileId", async (req, res) => {
+// Stream GridFS image
+router.get("/image/:fileId", async (req, res) => {
+  console.log("Fetching image for fileId:", req.params.fileId);
   try {
-    const gfs = req.app.get("gfs");
-    if (!gfs) {
-      console.error("GridFS not initialized");
-      return res.status(500).json({ error: "GridFS not initialized" });
-    }
-    if (!mongoose.Types.ObjectId.isValid(req.params.fileId)) {
-      console.error(`Invalid fileId: ${req.params.fileId}`);
+    const { fileId } = req.params;
+    if (!mongoose.isValidObjectId(fileId)) {
       return res.status(400).json({ error: "Invalid file ID" });
     }
-    const fileId = new mongoose.Types.ObjectId(req.params.fileId);
-    const files = await gfs.find({ _id: fileId }).toArray();
+
+    const bucket = getGridFSBucket();
+    const files = await bucket.find({ _id: new mongoose.Types.ObjectId(fileId) }).toArray();
+
     if (!files || files.length === 0) {
-      console.error(`File not found: ${fileId}`);
-      return res.status(404).json({ error: "File not found" });
+      return res.status(404).json({ error: "Image not found" });
     }
-    console.log(`Serving file: ${files[0].filename}`);
-    const readStream = gfs.openDownloadStream(fileId);
-    res.set("Content-Type", files[0].contentType);
+
+    const file = files[0];
+    res.set("Content-Type", file.contentType || "application/octet-stream");
+    res.set("Content-Length", file.length);
+
+    const readStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(fileId));
     readStream.on("error", (error) => {
-      console.error("Error streaming file:", error);
-      res.status(500).json({ error: "Error streaming file" });
+      console.error("Error streaming GridFS file:", error);
+      res.status(500).json({ error: "Failed to stream image" });
     });
     readStream.pipe(res);
   } catch (error) {
-    console.error("Error retrieving file:", error);
-    res.status(500).json({ error: "Error retrieving file", details: error.message });
+    console.error("Error in image streaming endpoint:", error);
+    res.status(500).json({ error: "Failed to fetch image", details: error.message });
   }
 });
-
-console.log("Gallery routes registered: POST /api/storage, GET /api/storage/file/:fileId");
-
 module.exports = router;

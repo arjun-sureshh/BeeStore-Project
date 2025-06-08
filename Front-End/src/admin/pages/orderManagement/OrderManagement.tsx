@@ -58,6 +58,8 @@ const OrderManagement: React.FC = () => {
         const response = await axios.get(
           `http://localhost:5000/api/booking/get-order-details?page=${page}&limit=${limit}`,
         );
+        console.log(response.data);
+        
         const { data, pagination } = response.data;
         const mappedOrders = data.map((order: any) => ({
           ...order,
@@ -209,7 +211,7 @@ const OrderManagement: React.FC = () => {
                 <div className={styles.productImageWrapper}>
                   {item.image ? (
                     <img
-                      src={item.image}
+                      src={`http://localhost:5000${item.image}`}
                       alt={item.variantDetails.productTitle}
                       className={styles.productImage}
                     />
