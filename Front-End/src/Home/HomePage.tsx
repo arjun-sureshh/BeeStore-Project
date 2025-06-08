@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
     const fetchthedemo= async() =>{
       try {
         const response = await axios.get(
-          `https://bee-store-api-server-side.vercel.app/api/product/test-demo`
+          `https://bee-store-api-server-side.vercel.app/test-demo`
         );
         console.log("demo",response);
         

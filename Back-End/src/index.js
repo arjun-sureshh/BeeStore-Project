@@ -57,7 +57,15 @@ connectDB()
     app.use("/api/userView", require("./routers/userViewRouters"));
     app.use("/api/productUpload", require("./routers/productUploadRouters"));
 
-
+ app.use("/test-demo", async (req, res) => {
+  try {
+    const msg="hello backedn connected"
+    res.status(200).json(msg);
+  } catch (error) {
+    console.error("Error in grouped-by-category:", error);
+    res.status(500).json({ error: "Internal Server Error", details: error.message });
+  }
+});
 
     app.use(handleMulterError);
 
