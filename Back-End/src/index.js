@@ -6,7 +6,12 @@ const connectDB = require("./config/db");
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ["https://bee-store-rho.vercel.app", "http://localhost:5173"], // Add localhost for development
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  credentials: true, // If you use cookies or auth headers
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 connectDB()
   .then(() => {
