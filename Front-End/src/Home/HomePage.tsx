@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
   const [categoriesData, setCategoriesData] = useState<
     Record<string, CategoryData>
   >({
@@ -69,7 +69,7 @@ const HomePage: React.FC = () => {
         setRecentlyLaunchedProducts(otherProducts);
       } catch (error: any) {
         console.error("Error fetching products:", error);
-        setError("Failed to fetch products. Please try again later.");
+      
       } finally {
         setLoading(false);
       }

@@ -10,9 +10,8 @@ import {
 } from "@mui/material";
 import { IoSearchCircleOutline } from "react-icons/io5";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleProductId } from "../../../../../redux/toogleSlice";
-import { RootState } from "../../../../../redux/store";
 
 interface fetchData {
   categoryName: string;
@@ -25,7 +24,7 @@ interface selectCategoryProps {
 
 const SelectCategory: React.FC<selectCategoryProps> = ({ sellerId }) => {
   const dispatch = useDispatch();
-  const productId = useSelector((state: RootState) => state.toggle.productId); // fetch the productid from the redux
+  // const productId = useSelector((state: RootState) => state.toggle.productId); // fetch the productid from the redux
   const [searchData, setSearchData] = useState<string>("");
   const [fetchData, setFetchData] = useState<fetchData[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
