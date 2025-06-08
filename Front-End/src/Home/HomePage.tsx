@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:5000/api/product/grouped-by-category`
+          `${API_URL}/api/product/grouped-by-category`
         );
 
         const productData: CategoryGroup[] = response.data.data || [];
