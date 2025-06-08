@@ -57,7 +57,7 @@ connectDB()
     app.use("/api/userView", require("./routers/userViewRouters"));
     app.use("/api/productUpload", require("./routers/productUploadRouters"));
 
- app.use("/test-demo", async (req, res) => {
+ app.get("/test-demo", async (req, res) => {
   try {
     const msg="hello backedn connected"
     res.status(200).json(msg);
