@@ -45,4 +45,14 @@ router.get("/fetchallproducts/:sellerId", getProductBySellerID);
 router.get("/fetchProductData/:productId", getProductByProductId);
 router.delete("/:id", deleteProduct);
 
+router.get("/test-demo", async (req, res) => {
+  try {
+    const msg="hello backedn connected"
+    res.status(200).json(msg);
+  } catch (error) {
+    console.error("Error in grouped-by-category:", error);
+    res.status(500).json({ error: "Internal Server Error", details: error.message });
+  }
+});
+
 module.exports = router;

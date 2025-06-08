@@ -32,6 +32,21 @@ const HomePage: React.FC = () => {
     Product[]
   >([]);
   const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
+  useEffect(() =>{
+    const fetchthedemo= async() =>{
+      try {
+        const response = await axios.get(
+          `https://bee-store-api-server-side.vercel.app/api/product/test-demo`
+        );
+        console.log(response);
+        
+      } catch (error) {
+        console.error(error,"demo error");
+        
+      }
+    }
+    fetchthedemo();
+  })
   useEffect(() => {
     const fetchProductsByCategory = async () => {
       try {
