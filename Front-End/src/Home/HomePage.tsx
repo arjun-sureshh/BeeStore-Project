@@ -54,6 +54,7 @@ const HomePage: React.FC = () => {
         const response = await axios.get(
           `https://bee-store-api-server-side.vercel.app/api/product/grouped-by-category`
         );
+console.log(response,"grouped-category");
 
         const productData: CategoryGroup[] = response.data.data || [];
 
