@@ -44,6 +44,7 @@ const UserLogin: React.FC = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [emailExists, setEmailExists] = useState(false);
+const API_URL = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
 
@@ -61,7 +62,7 @@ const UserLogin: React.FC = () => {
       if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         try {
           const response = await axios.post(
-            `http://localhost:5000/api/user/check-email`,
+            `${API_URL}/api/user/check-email`,
             { email: value },
           );
           setEmailExists(response.data.exists);
@@ -114,7 +115,7 @@ const UserLogin: React.FC = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/Login`,
+        `${API_URL}/api/Login`,
         formData,
       );
       if (response.data.userType === "user") {
@@ -167,7 +168,7 @@ const UserLogin: React.FC = () => {
 
   const handleSendOtp = async () => {
     try {
-      await axios.post(`http://localhost:5000/api/user/send-otp`, {
+      await axios.post(`${API_URL}/api/user/send-otp`, {
         email: forgotEmail,
       });
       setOtpSent(true);
@@ -191,7 +192,7 @@ const UserLogin: React.FC = () => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/user/verify-otp`,
+        `${API_URL}/api/user/verify-otp`,
         {
           email: forgotEmail,
           otp,
@@ -232,7 +233,7 @@ const UserLogin: React.FC = () => {
       return;
     }
     try {
-      await axios.post(`http://localhost:5000/api/user/reset-password`, {
+      await axios.post(`${API_URL}/api/user/reset-password`, {
         email: forgotEmail,
         password: newPassword,
       });

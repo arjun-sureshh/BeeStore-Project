@@ -22,6 +22,7 @@ const ProductView: React.FC = () => {
   const existingUser = sessionStorage.getItem("user");
   const [existingUserData, setExistingUserData] = useState<existingUserData>();
   const location = useLocation();
+const API_URL = import.meta.env.VITE_API_URL;
 
   // set user latest view
   useEffect(() => {
@@ -37,7 +38,7 @@ const ProductView: React.FC = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/userView",
+          `${API_URL}/api/userView`,
           { productId: singleProductId },
           { headers: { Authorization: `Bearer ${existingUser}` } },
         );
@@ -63,7 +64,7 @@ const ProductView: React.FC = () => {
       try {
         setLoading(true);
         const response = await axios.post(
-          "http://localhost:5000/api/productvaraint/fetchVaraint-single-View", // Update for production
+          `${API_URL}/api/productvaraint/fetchVaraint-single-View`, // Update for production
           { productId: singleProductId },
         );
         console.log("API Response in single product:", response.data);
@@ -87,7 +88,7 @@ const ProductView: React.FC = () => {
         return console.log("user not signin");
       }
       try {
-        const response = await axios.get("http://localhost:5000/api/Login", {
+        const response = await axios.get(`${API_URL}/api/Login`, {
           headers: {
             "x-auth-token": token,
           },
@@ -133,7 +134,7 @@ const ProductView: React.FC = () => {
       const finalAmount = totalAmount + platformFee;
 
       const response = await axios.post(
-        `http://localhost:5000/api/cart/buy-now`,
+        `${API_URL}/api/cart/buy-now`,
         {
           cartQty: qty,
           variantId: selectedVariant.variantId,

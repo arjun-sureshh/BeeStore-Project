@@ -39,6 +39,7 @@ interface ValidationState {
 
 const UserInformation: React.FC<UserInformationprops> = ({ userData }) => {
   const [emailExist, setEmailExist] = useState<string>("");
+const API_URL = import.meta.env.VITE_API_URL;
 
   const [inputData, setInputdata] = useState<InputDataProps>({
     fullName: "",
@@ -123,7 +124,7 @@ const UserInformation: React.FC<UserInformationprops> = ({ userData }) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/user/${userData?._id}`,
+        `${API_URL}/api/user/${userData?._id}`,
         datas,
       );
       console.log(response.data);

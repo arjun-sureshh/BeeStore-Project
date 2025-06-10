@@ -41,7 +41,9 @@ const ProductShow: React.FC<ProductShowProps> = ({
     mrp > 0 && sellingPrice <= mrp
       ? Math.round(((mrp - sellingPrice) / mrp) * 100)
       : 0;
-  const baseURL = "http://localhost:5000";
+  const baseURL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
+
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -65,7 +67,7 @@ const ProductShow: React.FC<ProductShowProps> = ({
 
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/wishlist/status",
+          `${API_URL}/api/wishlist/status`,
           {
             params: {
               userId: existingUserData._id,
@@ -106,7 +108,7 @@ const ProductShow: React.FC<ProductShowProps> = ({
           userId: existingUserData._id,
         };
         const response = await axios.delete(
-          "http://localhost:5000/api/wishlist",
+          `${API_URL}/api/wishlist`,
           { data: payload },
         );
         if (response.data.success) {
@@ -120,7 +122,7 @@ const ProductShow: React.FC<ProductShowProps> = ({
           userId: existingUserData._id,
         };
         const response = await axios.post(
-          "http://localhost:5000/api/wishlist",
+          `${API_URL}/api/wishlist`,
           payload,
         );
         if (response.data.success) {

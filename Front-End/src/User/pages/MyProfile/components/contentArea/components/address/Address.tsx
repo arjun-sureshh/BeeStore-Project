@@ -40,6 +40,8 @@ const Address: React.FC<Addressprops> = ({ userData }) => {
   >([]);
   const [hasChanges, sethasChanges] = useState<boolean>(false);
   const [, setEditAddressId] = useState<string>("");
+const API_URL = import.meta.env.VITE_API_URL;
+
   const [editData, setEditData] = useState<fetchedUserData>({
     _id: "",
     userId: "",
@@ -83,7 +85,7 @@ const Address: React.FC<Addressprops> = ({ userData }) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/address/getAddress/${_id}`,
+        `${API_URL}/api/address/getAddress/${_id}`,
       );
       console.log(response.data);
       setEditData(response.data.data);
@@ -98,7 +100,7 @@ const Address: React.FC<Addressprops> = ({ userData }) => {
       if (!userId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/address/getByUserId/${userId}`,
+          `${API_URL}/api/address/getByUserId/${userId}`,
         );
         console.log(response.data);
         setFetchedUserAddress(response.data.data);

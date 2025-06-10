@@ -35,11 +35,13 @@ const PreviousAddress: React.FC<previousAddressProps> = ({
   sethaschanges,
   onEdit,
 }) => {
+const API_URL = import.meta.env.VITE_API_URL;
+
   const onDelete = async (_id: string | undefined) => {
     if (!_id) return;
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/address/${_id}`,
+        `${API_URL}/api/address/${_id}`,
       );
       console.log(response.data);
       if (sethaschanges) {

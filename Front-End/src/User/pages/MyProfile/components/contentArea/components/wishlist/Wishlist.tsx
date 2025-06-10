@@ -24,6 +24,8 @@ const Wishlist: React.FC = () => {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [existingUserData, setExistingUserData] =
     useState<existingUserData | null>(null);
+const API_URL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
 
   // Fetch user details
@@ -39,7 +41,7 @@ const Wishlist: React.FC = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:5000/api/Login", {
+        const response = await axios.get(`${API_URL}/api/Login`, {
           headers: {
             "x-auth-token": token,
           },
@@ -71,7 +73,7 @@ const Wishlist: React.FC = () => {
 
       setIsLoading(true);
       try {
-        const response = await axios.get("http://localhost:5000/api/wishlist", {
+        const response = await axios.get(`${API_URL}/api/wishlist`, {
           params: { userId: existingUserData._id },
         });
         console.log("Wishlist fetch response:", JSON.stringify(response.data, null, 2)); // Debug
@@ -113,7 +115,7 @@ const Wishlist: React.FC = () => {
       console.log("Wishlist delete payload:", payload);
 
       const response = await axios.delete(
-        "http://localhost:5000/api/wishlist",
+        `${API_URL}/api/wishlist`,
         { data: payload },
       );
       console.log("Wishlist delete response:", response.data);
@@ -155,7 +157,7 @@ const Wishlist: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/cart", {
+      const response = await axios.post(`${API_URL}/api/cart`, {
         cartQty: minimumQty,
         variantId: productvaraintId,
         userId: existingUserData._id,
@@ -192,7 +194,7 @@ const Wishlist: React.FC = () => {
         ) : (
           wishlistItems.map((item, index) => {
             const imageUrl = item.image
-              ? `http://localhost:5000${item.image}`
+              ? `${API_URL}${item.image}`
               : "/default-image.jpg";
             console.log("Rendering item:", item.varientId, "Image URL:", imageUrl); // Debug
             return (

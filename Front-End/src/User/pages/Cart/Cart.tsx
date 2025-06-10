@@ -16,7 +16,7 @@ const Cart: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
+  const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ const Cart: React.FC = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:5000/api/Login", {
+        const response = await axios.get(`${API_URL}/api/Login`, {
           headers: { "x-auth-token": token },
         });
         console.log("Logged user response:", response.data);
@@ -54,7 +54,7 @@ const Cart: React.FC = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/cart/${existingUserData._id}`,
+          `${API_URL}/api/cart/${existingUserData._id}`,
         );
         console.log("Cart response:", response.data);
         if (response.data.success) {
@@ -74,7 +74,7 @@ const Cart: React.FC = () => {
   const checkUserAddress = async (): Promise<boolean> => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/address/getByUserId/${existingUserData?._id}`,
+        `${API_URL}/api/address/getByUserId/${existingUserData?._id}`,
       );
       return response?.data?.data?.length > 0;
     } catch (error: any) {
@@ -110,7 +110,7 @@ const Cart: React.FC = () => {
       console.log(cartIds);
 
       const response = await axios.post(
-        "http://localhost:5000/api/cart/place-order",
+        `${API_URL}/api/cart/place-order`,
         {
           userId: existingUserData._id,
           cartIds,

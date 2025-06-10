@@ -42,6 +42,8 @@ const Orders: React.FC = () => {
   const [selectedTimeFrame, setSelectedTimeFrame] = useState<string | null>(
     null,
   );
+const API_URL = import.meta.env.VITE_API_URL;
+
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [isRatingPage, setIsRatingPage] = useState<RatingPageState>({
@@ -65,7 +67,7 @@ const Orders: React.FC = () => {
     "2021",
     "Older",
   ];
-  const IMAGE_BASE_URL = "http://localhost:5000";
+  const IMAGE_BASE_URL = import.meta.env.VITE_API_URL;
 
   // Fetch user details
   useEffect(() => {
@@ -79,7 +81,7 @@ const Orders: React.FC = () => {
 
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/api/Login", {
+        const response = await axios.get(`${API_URL}/api/Login`, {
           headers: { "x-auth-token": token },
         });
         setUserData(response.data);
@@ -106,7 +108,7 @@ const Orders: React.FC = () => {
       try {
         setLoading(true);
         const response = await axios.post(
-          "http://localhost:5000/api/booking/order-details",
+          `${API_URL}/api/booking/order-details`,
           {
             userId: userData._id,
           },
@@ -141,7 +143,7 @@ const Orders: React.FC = () => {
       if (!searchTerm) {
         // Fetch all orders for the user
         response = await axios.post(
-          "http://localhost:5000/api/booking/order-details",
+          `${API_URL}/api/booking/order-details`,
           {
             userId: userData._id,
           },
@@ -151,7 +153,7 @@ const Orders: React.FC = () => {
 
         // Search orders by product title and user ID
         response = await axios.post(
-          `http://localhost:5000/api/booking/search-orders`,
+          `${API_URL}/api/booking/search-orders`,
           {
             productTitle: searchTerm,
             userId: userData._id,
@@ -179,7 +181,7 @@ const Orders: React.FC = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        "http://localhost:5000/api/booking/cancel-cart-item",
+        `${API_URL}/api/booking/cancel-cart-item`,
         {
           bookingId,
           cartId: cartItemId,
@@ -225,7 +227,7 @@ const Orders: React.FC = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        "http://localhost:5000/api/booking/update-the-status",
+        `${API_URL}/api/booking/update-the-status`,
         {
           bookingId,
           cartId: cartItemId,

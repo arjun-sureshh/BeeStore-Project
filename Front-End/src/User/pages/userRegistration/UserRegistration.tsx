@@ -34,6 +34,7 @@ const RegisterPage: React.FC = () => {
 
   const [emailExist, setEmailExist] = useState<string>("");
   const navigate = useNavigate();
+const API_URL = import.meta.env.VITE_API_URL;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -96,7 +97,7 @@ const RegisterPage: React.FC = () => {
       userMobileNumber: formData.mobileNumber,
     };
     try {
-      const response = await axios.post("http://localhost:5000/api/user", data);
+      const response = await axios.post(`${API_URL}/api/user`, data);
       console.log(response.data);
       navigate("/");
     } catch (error: any) {

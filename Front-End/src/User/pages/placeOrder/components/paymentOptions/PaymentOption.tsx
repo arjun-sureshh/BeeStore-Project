@@ -64,6 +64,8 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({
   const { width, height } = useWindowSize(); // Use custom hook
   const successMessageRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+const API_URL = import.meta.env.VITE_API_URL;
+
   // Generate a random CAPTCHA string
   const generateCaptcha = () => {
     const characters =
@@ -214,7 +216,7 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({
 
     try {
       const response = await axios.put(
-        "http://localhost:5000/api/booking/confirm-order",
+        `${API_URL}/api/booking/confirm-order`,
         {
           bookingID,
           addressId: selectedAddressId,

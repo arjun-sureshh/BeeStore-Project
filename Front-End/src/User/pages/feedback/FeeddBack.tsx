@@ -37,7 +37,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
   const handleRatingChange = (rating: number) => {
     setFormData({ ...formData, rating });
   };
-
+const API_URL = import.meta.env.VITE_API_URL;
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -102,7 +102,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/feedback",
+        `${API_URL}/api/feedback`,
         formDataToSend,
         {
           headers: {

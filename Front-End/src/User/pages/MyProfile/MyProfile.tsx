@@ -19,7 +19,7 @@ const MyProfile: React.FC = () => {
     useState<fetchedUserData | null>(null);
 
   const [, setExistingUserData] = useState<existingUserData | null>(null);
-
+const API_URL = import.meta.env.VITE_API_URL;
   // Fetch user details
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -31,7 +31,7 @@ const MyProfile: React.FC = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:5000/api/Login", {
+        const response = await axios.get(`${API_URL}/api/Login`, {
           headers: {
             "x-auth-token": token,
           },
@@ -55,7 +55,7 @@ const MyProfile: React.FC = () => {
   const fetchedUser = async (UserId: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/user/FetchDataByUserId/${UserId}`,
+        `${API_URL}/api/user/FetchDataByUserId/${UserId}`,
       );
       console.log(response.data);
       setFetchedUserData(response.data.data);

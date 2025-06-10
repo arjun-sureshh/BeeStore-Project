@@ -27,7 +27,8 @@ const ImageShow: React.FC<ImageShowProps> = ({
   handleBuyNow,
   isOutOfStock,
 }) => {
-  const baseURL = "http://localhost:5000";
+  const baseURL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
   const images =
     selectedVariant?.images.map((img) => ({
@@ -60,7 +61,7 @@ const ImageShow: React.FC<ImageShowProps> = ({
 
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/wishlist/status",
+          `${API_URL}/api/wishlist/status`,
           {
             params: {
               userId: existingUserData._id,
@@ -116,7 +117,7 @@ const ImageShow: React.FC<ImageShowProps> = ({
           userId: existingUserData._id,
         };
         const response = await axios.delete(
-          "http://localhost:5000/api/wishlist",
+          `${API_URL}/api/wishlist`,
           { data: payload },
         );
         if (response.data.success) {
@@ -130,7 +131,7 @@ const ImageShow: React.FC<ImageShowProps> = ({
           userId: existingUserData._id,
         };
         const response = await axios.post(
-          "http://localhost:5000/api/wishlist",
+          `${API_URL}/api/wishlist`,
           payload,
         );
         if (response.data.success) {
@@ -165,7 +166,7 @@ const ImageShow: React.FC<ImageShowProps> = ({
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/cart", {
+      const response = await axios.post(`${API_URL}/api/cart`, {
         cartQty: selectedVariant.minimumOrderQty,
         variantId: selectedVariant.variantId,
         userId: existingUserData._id,

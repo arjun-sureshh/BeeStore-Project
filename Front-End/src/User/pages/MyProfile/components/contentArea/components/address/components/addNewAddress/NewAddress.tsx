@@ -56,6 +56,8 @@ const NewAddress: React.FC<NewAddressProps> = ({
   const [fetchedDistricts, setFetchedDistricts] = useState<fetchedDistricts[]>(
     [],
   );
+const API_URL = import.meta.env.VITE_API_URL;
+
   const [inputData, setInputData] = useState<inputData>({
     fullName: "",
     mobile: "",
@@ -68,8 +70,8 @@ const NewAddress: React.FC<NewAddressProps> = ({
     latitude: null,
     longitude: null,
   });
-  console.log(inputData.latitude, "lattotude");
-  console.log(inputData.longitude, "longitude");
+  // console.log(inputData.latitude, "lattotude");
+  // console.log(inputData.longitude, "longitude");
 
   // handle change
 
@@ -105,7 +107,7 @@ const NewAddress: React.FC<NewAddressProps> = ({
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/address/user`,
+        `${API_URL}/api/address/user`,
         data,
       );
       console.log(response.data);
@@ -151,7 +153,7 @@ const NewAddress: React.FC<NewAddressProps> = ({
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/address/user/${_id}`,
+        `${API_URL}/api/address/user/${_id}`,
         data,
       );
       console.log(response.data);
@@ -231,7 +233,7 @@ const NewAddress: React.FC<NewAddressProps> = ({
     // fetch the district
     const fetchDistrict = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/district`);
+        const response = await axios.get(`${API_URL}/api/district`);
         console.log(response.data);
         setFetchedDistricts(response.data.data);
       } catch (error: any) {

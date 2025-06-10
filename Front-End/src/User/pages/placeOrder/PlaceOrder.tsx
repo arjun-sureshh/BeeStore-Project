@@ -43,6 +43,7 @@ const PlaceOrder: React.FC = () => {
   const [bookingData, setBookingData] = useState<BookingData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -55,7 +56,7 @@ const PlaceOrder: React.FC = () => {
 
       try {
         const response = await axios.get<existingUserData>(
-          "http://localhost:5000/api/Login",
+          `${API_URL}/api/Login`,
           {
             headers: { "x-auth-token": token },
           },
@@ -77,7 +78,7 @@ const PlaceOrder: React.FC = () => {
       if (!userId) return;
       try {
         const response = await axios.get<{ data: fetchedUserData[] }>(
-          `http://localhost:5000/api/address/getByUserId/${userId}`,
+          `${API_URL}/api/address/getByUserId/${userId}`,
         );
         setFetchedUserAddress(response.data.data);
         if (response.data.data.length > 0) {
@@ -102,7 +103,7 @@ const PlaceOrder: React.FC = () => {
 
       try {
         const response = await axios.post(
-          `http://localhost:5000/api/booking/getbyId`,
+          `${API_URL}/api/booking/getbyId`,
           {
             id: bookingID,
             userId: existingUserData?._id,

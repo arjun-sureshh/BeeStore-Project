@@ -20,7 +20,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   setSelectedVariant,
   isOutOfStock,
 }) => {
-  const baseURL = "http://localhost:5000";
+
+  const baseURL = import.meta.env.VITE_API_URL;
 
   const discountPercentage =
     selectedVariant.mrp > selectedVariant.sellingPrice

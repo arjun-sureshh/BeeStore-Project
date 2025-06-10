@@ -28,6 +28,7 @@ const ProductListing = () => {
   const [filters, setFilters] = useState<FilterState>({});
   const existingUser = sessionStorage.getItem("user");
   const [existingUserData, setexistingUserData] = useState<existingUserData>();
+const API_URL = import.meta.env.VITE_API_URL;
 
   // Fetch products from API
   useEffect(() => {
@@ -36,11 +37,11 @@ const ProductListing = () => {
         setLoading(true);
         const response = searchKeyword
           ? await axios.post(
-              "http://localhost:5000/api/product/bySearchKeyword",
+              `${API_URL}/api/product/bySearchKeyword`,
               { searchKeyword },
             )
           : await axios.post(
-              "http://localhost:5000/api/product/ByTopCategory",
+              `${API_URL}/api/product/ByTopCategory`,
               { clickedCategory },
             );
 
@@ -72,7 +73,7 @@ const ProductListing = () => {
         return console.log("user not signin");
       }
       try {
-        const response = await axios.get("http://localhost:5000/api/Login", {
+        const response = await axios.get(`${API_URL}/api/Login`, {
           headers: {
             "x-auth-token": token, // Send token in header
           },
